@@ -89,7 +89,7 @@ password.addEventListener("blur", () => {
   }
 });
 const signinForm = document.querySelector("#signin_form");
-
+let finalFlag = false;
 signinForm.addEventListener("submit", (e) => {
   finalFlag =  emailFlag && passwordFlag; 
 

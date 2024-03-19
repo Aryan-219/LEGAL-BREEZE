@@ -1,7 +1,7 @@
 console.log("Signup.js file is working");
 // Getting the signup form
 const signupForm = document.querySelector("#form1");
-// console.log(signupForm);
+
 
 // Getting the input fields
 const fullname = document.querySelector("#fullname");
