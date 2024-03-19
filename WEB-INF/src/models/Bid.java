@@ -25,8 +25,6 @@ public class Bid {
 
     }
 
-   
-
     public Bid(String issue, String description, Integer budget, Date startDate, Date deadline) {
         this.issue = issue;
         this.description = description;
@@ -34,8 +32,6 @@ public class Bid {
         this.startDate = startDate;
         this.deadline = deadline;
     }
-
-
 
     // ################### Other Methods #########################
     public boolean saveBidDetails(Integer userId) {
@@ -51,6 +47,11 @@ public class Bid {
             ps.setDate(4, startDate);
             ps.setDate(5, deadline);
             ps.setInt(6, userId);
+
+            int result = ps.executeUpdate();
+            if (result == 1) {
+                flag = true;
+            }
             con.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

@@ -34,17 +34,12 @@ public class SaveBidDetailsServlet extends HttpServlet {
         Date deadline = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            // SimpleDateFormat ft = new SimpleDateFormat("yyyy-mm-dd");
 
-            // String str = ft.format(new Date());
-
-            // System.out.println("Formatted Date : " + str);
-            // Printing the formatted date
             deadline = dateFormat.parse(dl);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         System.out.println("User ID: " + user.getUserId());
         System.out.println("Issue: " + issue);
         System.out.println("Description: " + description);
@@ -57,5 +52,7 @@ public class SaveBidDetailsServlet extends HttpServlet {
         Bid bid = new Bid(issue, description, budget, sd, obj);
         boolean flag = bid.saveBidDetails(user.getUserId());
         System.out.println("Result of sql statement: " + flag);
+
+        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
     }
 }
