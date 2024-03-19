@@ -22,7 +22,7 @@
     <c:import url="/header.jsp" />
 
     <main>
-      <h1>This is profile</h1>
+      <h1 class="text-slate-50">This is profile</h1>
     </main>
 
     <c:import url="/footer.jsp" />

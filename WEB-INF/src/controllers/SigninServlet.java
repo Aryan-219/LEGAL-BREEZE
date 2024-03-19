@@ -42,10 +42,6 @@ public class SigninServlet extends HttpServlet {
             String password = request.getParameter("password");
             String email = request.getParameter("email");
 
-            // System.out.println(password);
-            // System.out.println(email);
-            // String otp = OTPGenerator.generateOTP();
-            // System.out.println("Saving otp at the db for future email verification"+otp);
             User user = new User(password, email);
             int result = user.signInUser();
             System.out.println("Flag result for sql query" + flag);
