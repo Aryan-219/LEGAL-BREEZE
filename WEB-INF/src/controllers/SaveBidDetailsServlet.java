@@ -53,6 +53,6 @@ public class SaveBidDetailsServlet extends HttpServlet {
         boolean flag = bid.saveBidDetails(user.getUserId());
         System.out.println("Result of sql statement: " + flag);
 
-        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("dashboard.do").forward(request, response);
     }
 }

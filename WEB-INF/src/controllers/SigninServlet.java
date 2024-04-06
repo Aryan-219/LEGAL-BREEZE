@@ -11,6 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletContext;
 
 import utils.AppUtility;
+// import java.util.ArrayList;
+
+// import models.Bid;
 import models.User;
 
 @WebServlet("/signin.do")
@@ -47,7 +50,8 @@ public class SigninServlet extends HttpServlet {
             System.out.println("Flag result for sql query" + flag);
             if (result == 1) {
                 session.setAttribute("user", user);
-                nextURL = "dashboard.jsp";
+                
+                nextURL = "dashboard.do";
             }else if(result == 2){
                 // Please verify your email . 
                 // Provide verificaion link

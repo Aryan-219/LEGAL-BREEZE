@@ -39,6 +39,10 @@ public class User {
 
     }
 
+    public User(Integer userId) {
+        this.userId = userId;
+    }
+
     public User(String name, String email, String password, String phone, State state, UserType userType, String otp) {
         this.name = name;
         this.email = email;

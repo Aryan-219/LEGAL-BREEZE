@@ -110,13 +110,14 @@ password.addEventListener("blur", () => {
 
 // ----------------------------- Phone start -------------------------------
 const checkPhoneExists = async (phone) => {
-  console.log("Entered mobile number is: " + phone);
+  console.log("Entered mobile number : " + phone);
   const response = await fetch("check_phone_exists.do?phone=" + phone);
   const result = await response.text();
   console.log("Response recieved from server side: " + result);
   return result;
 };
 phone.addEventListener("blur", () => {
+  console.log(phone.value);
   if (phone.value == null || phone.value === "") {
     phoneErr.innerText = "Please enter a phone number";
     phoneErr.style.display = "block";

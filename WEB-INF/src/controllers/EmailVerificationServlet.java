@@ -25,7 +25,8 @@ public class EmailVerificationServlet extends HttpServlet {
             System.out.println("updating next page to signin page");
             nextPage = "signin.jsp";
         }else if(result == 0){
-            nextPage ="emailverified.jsp";
+            // nextPage ="emailverified.jsp";
+            nextPage="signin.jsp";
         }else{
             System.out.println("dikkat agyi bro");
         }
