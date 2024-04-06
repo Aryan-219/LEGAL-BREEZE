@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utils.AppUtility;
-// import utils.SMSSender;
+import utils.SMSSender;
 
 @WebServlet("/generate_otp.do")
 public class GenerateOTPServlet extends HttpServlet{
