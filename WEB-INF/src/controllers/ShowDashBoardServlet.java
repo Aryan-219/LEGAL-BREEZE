@@ -22,6 +22,7 @@ public class ShowDashBoardServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        String nextURL = "dashboard.jsp";
         ArrayList<Bid> bids = Bid.collectAllBids(user.getUserId());
         ArrayList<Profession> professions = Profession.collectAllProfessions();
         ArrayList<LawyerType> lawyerTypes = LawyerType.collectAllLawyerTypes();
@@ -32,7 +33,10 @@ public class ShowDashBoardServlet extends HttpServlet {
         session.setAttribute("lawyerTypes", lawyerTypes);
         session.setAttribute("notaryTypes", notaryTypes);
         session.setAttribute("docwriters", docwriterTypes);
-        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        if(user.getUserType().getUserTypeId() == 2){
+            nextURL= "lawyerDashboard.jsp";
+        }
+        request.getRequestDispatcher(nextURL).forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse respone) throws ServletException,IOException {
         doGet(request, respone);

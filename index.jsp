@@ -21,11 +21,11 @@
   <body class="bg-gray-900 md:px-24 px-0">
     <c:import url="/header.jsp" />
 
-    <main>
+    <main class="my-3 sm:px-6 md:px-0">
       <!-- <div class="text-slate-50"><h1>12 Days of working implemented.</h1>
         <h2>To start from day 13...</h2></div> -->
       
-      <div id="default-carousel" class="relative w-full" data-carousel="slide">
+      <div id="default-carousel" class="relative w-full p-4" data-carousel="slide">
         <!-- Carousel wrapper -->
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
           <!-- Item 1 -->
@@ -163,6 +163,7 @@
           </span>
         </button>
       </div>
+      
     </main>
 
     <c:import url="/footer.jsp" />
