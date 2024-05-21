@@ -26,7 +26,7 @@
         <div
           class="bg-cyan-900 rounded-3xl md:mt-16 basis-1/4 flex-auto flex-col border-2"
         >
-          <!-- Lawyer Dropdown -->
+          <!-- Profession Dropdown -->
           <c:forEach var="profession" items="${professions}" varStatus="n">
             <div class="text-center pt-4 mt-2">
               <button
@@ -141,7 +141,7 @@
                       </c:forEach></c:when
                     >
                     <c:otherwise
-                      ><c:forEach var="docwriter" items="${docwriterTypes}">
+                      ><c:forEach var="docwriter" items="${docwriters}">
                         <li>
                           <div
                             class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
