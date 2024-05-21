@@ -11,6 +11,9 @@ public class Gender {
 
     }
 
+    public Gender(Integer genderId){
+        this.genderId = genderId;
+    }
 
     // ################### Getters-Setters #########################
     public int getGenderId() {

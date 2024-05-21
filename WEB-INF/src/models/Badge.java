@@ -9,7 +9,12 @@ public class Badge {
     public Badge() {
 
     }
+    
     // ################### Getters-Setters #########################
+
+    public Badge(Integer badgeId) {
+        this.badgeId = badgeId;
+    }
 
     public int getBadgeId() {
         return badgeId;

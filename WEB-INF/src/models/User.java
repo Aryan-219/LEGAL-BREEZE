@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import utils.AppUtility;
 
@@ -56,6 +57,44 @@ public class User {
     public User(String password, String email) {
         this.password = password;
         this.email = email;
+    }
+
+    public static ArrayList<User> collectAllLawyers(){
+        ArrayList<User> lawyers = new ArrayList<User>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            String query = "select * from users where user_type_id=2";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                User user = new User();
+                user.setUserId(rs.getInt(1));
+                user.setName(rs.getString(2));
+                user.setEmail(rs.getString(3));
+                user.setPassword(rs.getString(4));
+                user.setPhone(rs.getString(5));
+                user.setAddress(rs.getString(6));
+                user.setPin(rs.getString(7));
+                user.setState(new State(rs.getInt(8)));
+                user.setGender(new Gender(rs.getInt(9)));
+                user.setUserType(new UserType(rs.getInt(10)));
+                user.setCategory(new Category(rs.getInt(11)));
+                user.setExperience(rs.getInt(12));
+                user.setProfilePic(rs.getString(13));
+                user.setBadge(new Badge(rs.getInt(14)));
+                user.setJoinedOn(rs.getTimestamp(15));
+                user.setCasesFought(rs.getInt(16));
+                user.setCasesWon(rs.getInt(17));
+                user.setSuccessRatio(18);
+                user.setStatus(new Status(19));
+                user.setUid(rs.getString(20));
+                lawyers.add(user);
+            }
+        }catch(SQLException|ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        return lawyers;
     }
 
     // ################### Other Methods #########################

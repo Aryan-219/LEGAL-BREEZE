@@ -12,6 +12,11 @@ public class Category {
     }
 
 
+    public Category(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+
     // ################### Getters-Setters #########################
     public int getCategoryId() {
         return categoryId;
