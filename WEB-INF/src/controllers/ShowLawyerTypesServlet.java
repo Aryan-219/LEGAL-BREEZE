@@ -18,7 +18,6 @@ public class ShowLawyerTypesServlet extends HttpServlet{
         HttpSession session = request.getSession();
         String nextURL="lawyer_types.jsp";
         ArrayList<ProviderType> lawyerTypes = ProviderType.collectAllLawyerTypes();
-        System.out.println(lawyerTypes);
         session.setAttribute("lawyerTypes", lawyerTypes);
         request.getRequestDispatcher(nextURL).forward(request, response);
     }

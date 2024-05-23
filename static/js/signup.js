@@ -8,7 +8,9 @@ const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const phone = document.querySelector("#phone");
 const state = document.querySelector("#state");
-
+const providerDiv = document.querySelector("#provider_div");
+const seekerDiv = document.querySelector("#seeker_div");
+const providerTypeDropdown = document.querySelector("#provider_type_dropdown");
 // Getting the error paragraph tag with respect to their input field
 const fullnameErr = document.querySelector("#fullname_err");
 const emailErr = document.querySelector("#email_err");
@@ -38,7 +40,13 @@ signupForm.addEventListener("submit", (e) => {
     console.log("Prevented the default behavior");
   }
 });
+seekerDiv.addEventListener("click",(e)=>{
+  provider_type_dropdown.classList.replace('block','hidden');
+});
 
+providerDiv.addEventListener("click", (e) => {
+  provider_type_dropdown.classList.replace('hidden','block');
+});
 fullname.addEventListener("blur", () => {
   if (
     !fullname.value.match(fullNamePattern) ||

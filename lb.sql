@@ -543,12 +543,8 @@ create table providers
 (
     provider_id int auto_increment primary key,
     user_id int not null,
-    -- user_type_id int not null,
-    profession_id int not null,
     provider_type_id int not null,
     constraint fk_providers_users foreign key (user_id) references users (user_id),
-    constraint fk_providers_profession foreign key (profession_id) references profession (profession_id),
-    constraint fk_providers_user_types foreign key (user_type_id) references user_types (user_type_id),
-    -- constraint check_provider check (user_type_id==2),
+    constraint fk_p_providers_types foreign key (provider_type_id) references provider_types (provider_type_id)
 );
 #################  providers-end ##############

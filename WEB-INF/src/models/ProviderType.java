@@ -21,6 +21,29 @@ public class ProviderType {
     }
 
     // ################### Other Methods ########################
+    public static ArrayList<ProviderType> collectAllProviderTypes() {
+        ArrayList<ProviderType> types = new ArrayList<ProviderType>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            String query = "select * from provider_types";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                ProviderType type = new ProviderType();
+                type.setProviderTypeId(rs.getInt(1));
+                type.setTypeName(rs.getString(2));
+                type.setProfession(new Profession(rs.getInt(3)));
+                types.add(type);
+            }
+            con.close();
+        }catch(ClassNotFoundException|SQLException e){
+            e.printStackTrace();
+        }
+        return types;
+    }
+    
+
     public static ArrayList<ProviderType> collectAllLawyerTypes() {
         ArrayList<ProviderType> lawyerTypes = new ArrayList<ProviderType>();
         try{
