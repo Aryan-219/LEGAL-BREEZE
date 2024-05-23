@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.annotation.WebServlet;
 
-import models.DocwriterType;
+import models.ProviderType;
 
 @WebServlet("/docwriter_types.do")
 public class ShowDocwriterTypesServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         String nextURL = "docwriter_types.jsp";
-        ArrayList<DocwriterType> docwriterTypes = DocwriterType.collectAllDocwriterTypes();
+        ArrayList<ProviderType> docwriterTypes = ProviderType.collectAllDocwriterTypes();
 
         session.setAttribute("docwriterTypes", docwriterTypes);
 

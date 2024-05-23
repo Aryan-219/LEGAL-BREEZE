@@ -9,9 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import models.Bid;
-import models.DocwriterType;
-import models.LawyerType;
-import models.NotaryType;
 import models.User;
 import models.Profession;
 
@@ -25,17 +22,8 @@ public class ShowDashBoardServlet extends HttpServlet {
         String nextURL = "dashboard.jsp";
         ArrayList<Bid> bids = Bid.collectAllBids(user.getUserId());
         ArrayList<Profession> professions = Profession.collectAllProfessions();
-        ArrayList<LawyerType> lawyerTypes = LawyerType.collectAllLawyerTypes();
-        ArrayList<NotaryType> notaryTypes = NotaryType.collectAllNotaryTypes();
-        ArrayList<DocwriterType> docwriterTypes = DocwriterType.collectAllDocwriterTypes();
         session.setAttribute("bids", bids);
         session.setAttribute("professions", professions);
-        session.setAttribute("lawyerTypes", lawyerTypes);
-        session.setAttribute("notaryTypes", notaryTypes);
-        session.setAttribute("docwriters", docwriterTypes);
-        if(user.getUserType().getUserTypeId() == 2){
-            nextURL= "lawyerDashboard.jsp";
-        }
         request.getRequestDispatcher(nextURL).forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse respone) throws ServletException,IOException {

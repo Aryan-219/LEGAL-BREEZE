@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.annotation.WebServlet;
 
-import models.LawyerType;
+import models.ProviderType;
 
 @WebServlet("/lawyer_types.do")
 public class ShowLawyerTypesServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
         HttpSession session = request.getSession();
         String nextURL="lawyer_types.jsp";
-        ArrayList<LawyerType> lawyerTypes = LawyerType.collectAllLawyerTypes();
-        
+        ArrayList<ProviderType> lawyerTypes = ProviderType.collectAllLawyerTypes();
+        System.out.println(lawyerTypes);
         session.setAttribute("lawyerTypes", lawyerTypes);
         request.getRequestDispatcher(nextURL).forward(request, response);
     }

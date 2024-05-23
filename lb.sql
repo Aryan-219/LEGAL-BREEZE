@@ -484,81 +484,71 @@ values
 ('document writers', 2);
 
 #################  profession-END ##############
-#################  lawyer_types-start ##############
-create table lawyer_types (
-    lawyer_type_id int auto_increment primary key,
+
+#################  provider_types-start ##############
+create table provider_types
+(
+    provider_type_id int auto_increment primary key,
     type_name varchar(40) not null,
     profession_id int not null,
-    constraint fk_lawyerTypes_profession foreign key (profession_id) references profession (profession_id)
+    constraint fk_providerTypes_profession foreign key (profession_id) references profession (profession_id)
 );
 
 insert into
-    lawyer_types (type_name, profession_id)
+    provider_types (type_name, profession_id)
 values
-    ('Intellectual_property', 1),
+    ('Intellectual_property_lawyers', 1),
     ('Immigration_lawyers', 1),
-    ('Legal_services', 1),
-    ('Corporate_law', 1),
-    ('Civil_law', 1),
-    ('Criminal_law', 1),
+    ('Legal_services_lawyers', 1),
+    ('Corporate_law_lawyers', 1),
+    ('Civil_law_lawyers', 1),
+    ('Criminal_law_lawyers', 1),
     ('Labor_lawyers', 1),
     ('Personal_injury_lawyers', 1),
-    ('Public_interest_lawyer', 1),
-    ('Constitutional_law', 1),
-    ('Corporate_lawyer', 1),
-    ('Mediation', 1),
-    ('Taxation', 1),
-    ('Bankruptcy', 1),
-    ('Contracts', 1),
-    ('Family_law', 1),
-    ('Judiciary', 1),
-    ('Law_articles', 1),
-    ('Legal_Aid', 1),
-    ('Company_litigation', 1),
-    ('Consumer_protection', 1),
-    ('Cyber_crime', 1),
-    ('Divorce_cases', 1),
-    ('File_special_leave_petition', 1);
+    ('Public_interest_lawyers', 1),
+    ('Constitutional_laws', 1),
+    ('Corporate_lawyers', 1),
+    ('Mediation_lawyers', 1),
+    ('Taxation_lawyers', 1),
+    ('Bankruptcy_lawyers', 1),
+    ('Contracts_lawyers', 1),
+    ('Family_law_lawyers', 1),
+    ('Judiciary_lawyers', 1),
+    ('Law_articles_lawyers', 1),
+    ('Legal_Aid_lawyers', 1),
+    ('Company_litigation_lawyers', 1),
+    ('Consumer_protection_lawyers', 1),
+    ('Cyber_crime_lawyers', 1),
+    ('Divorce_cases_lawyers', 1),
+    ('File_special_leave_petition_lawyers', 1),
+    ('Traditional_Notary_Public',2),
+    ('Civil_Law_Notary',2),
+    ('Mobile_Notary',2),
+    ('Electronic_Notary',2),
+    ('Online_Notary',2),
+    ('feature_writers',3),
+    ('legal_correspondents_writers',3),
+    ('web_writers',3),
+    ('copywriters',3),
+    ('bloggers_writers',3),
+    ('corporate_writers',3),
+    ('brief_writers',3);
 
-#################  lawyer_types-end ##############
+#################  provider_types-end ##############
 
 
-#################  notary_types-start ##############
-create table notary_types (
-    notary_type_id int auto_increment primary key,
-    type_name varchar(40) not null,
+// Pending work // 
+#################  providers-start ##############
+create table providers 
+(
+    provider_id int auto_increment primary key,
+    user_id int not null,
+    -- user_type_id int not null,
     profession_id int not null,
-    constraint fk_notaryTypes_profession foreign key (profession_id) references profession (profession_id)
+    provider_type_id int not null,
+    constraint fk_providers_users foreign key (user_id) references users (user_id),
+    constraint fk_providers_profession foreign key (profession_id) references profession (profession_id),
+    constraint fk_providers_user_types foreign key (user_type_id) references user_types (user_type_id),
+    -- constraint check_provider check (user_type_id==2),
 );
-
-insert into notary_types 
-(type_name,profession_id) 
-values 
-('Traditional_Notary_Public',2),
-('Civil_Law_Notary',2),
-('Mobile_Notary',2),
-('Electronic_Notary',2),
-('Online_Notary',2);
-#################  notary_types-end ##############
-
-
-
-#################  docwriter_types-start ##############
-create table docwriter_types (
-    docwriter_type_id int auto_increment primary key,
-    type_name varchar(40) not null,
-    profession_id int not null,
-    constraint fk_docwriterTypes_profession foreign key (profession_id) references profession (profession_id)
-);
-
-insert into docwriter_types 
-(type_name,profession_id) 
-values 
-('feature_writers',3),
-('legal_correspondents',3),
-('web_writers',3),
-('copywriters',3),
-('bloggers',3),
-('corporate_writers',3),
-('brief_writers',3);
-#################  docwriter_types-end ##############
+#################  providers-end ##############
