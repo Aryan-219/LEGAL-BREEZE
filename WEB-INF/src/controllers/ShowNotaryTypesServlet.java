@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.annotation.WebServlet;
 
+import models.Provider;
 import models.ProviderType;
 
 @WebServlet("/notary_types.do")
@@ -18,8 +19,10 @@ public class ShowNotaryTypesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String nextURL = "notary_types.jsp";
         ArrayList<ProviderType> notaryTypes = ProviderType.collectAllNotaryTypes();
-
         session.setAttribute("notaryTypes", notaryTypes);
+
+        ArrayList<Provider> allNotaries = Provider.collectAllNotaries();
+        session.setAttribute("allNotaries", allNotaries);
 
         request.getRequestDispatcher(nextURL).forward(request, response);
     }

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import utils.AppUtility;
-import utils.SMSSender;
+// import utils.AppUtility;
+// import utils.SMSSender;
 
 @WebServlet("/generate_otp.do")
 public class GenerateOTPServlet extends HttpServlet{
@@ -19,7 +19,7 @@ public class GenerateOTPServlet extends HttpServlet{
 
         String phone  = request.getParameter("phone");
 System.out.println(phone);
-        String otp = AppUtility.generateOTP();
+        // String otp = AppUtility.generateOTP();
         
         // SMSSender.sendSMS(phone,otp);
 

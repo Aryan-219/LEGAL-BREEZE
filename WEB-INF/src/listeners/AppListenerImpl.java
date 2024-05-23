@@ -1,5 +1,6 @@
 package listeners;
 
+import models.Provider;
 import models.ProviderType;
 import models.State;
 import utils.AppUtility;
@@ -28,6 +29,9 @@ public class AppListenerImpl implements ServletContextListener {
 
         ArrayList<ProviderType> docwriterTypes = ProviderType.collectAllDocwriterTypes();
         context.setAttribute("docwriterTypes", docwriterTypes);
+
+        ArrayList<Provider> allProviders = Provider.collectAllProviders();
+        context.setAttribute("allProviders", allProviders);
         
         System.out.println("To dekhiye shuru hogya... ");
         AppUtility.appContext = context;

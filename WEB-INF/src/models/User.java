@@ -60,44 +60,6 @@ public class User {
     }
 
     // ################### Other Methods #########################
-    public static ArrayList<User> collectAllProviders(){
-        ArrayList<User> providers = new ArrayList<User>();
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
-            String query = "select * from users where user_type_id=2";
-            PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                User provider = new User();
-            provider.setUserId(rs.getInt(1));
-            provider.setName(rs.getString(2));
-            provider.setEmail(rs.getString(3));
-            provider.setPassword(rs.getString(4));
-            provider.setPhone(rs.getString(5));
-            provider.setAddress(rs.getString(6));
-            provider.setPin(rs.getString(7));
-            provider.setState(new State(rs.getInt(8)));
-            provider.setGender(new Gender(rs.getInt(9)));
-            provider.setUserType(new UserType(rs.getInt(10)));
-            provider.setCategory(new Category(rs.getInt(11)));
-            provider.setExperience(rs.getInt(12));
-            provider.setProfilePic(rs.getString(13));
-            provider.setBadge(new Badge(rs.getInt(14)));
-            provider.setJoinedOn(rs.getTimestamp(15));
-            provider.setCasesFought(rs.getInt(16));
-            provider.setCasesWon(rs.getInt(17));
-            provider.setSuccessRatio(18);
-            provider.setStatus(new Status(19));
-            provider.setUid(rs.getString(20));
-                providers.add(provider);
-            }
-        }catch(SQLException|ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        return providers;
-    }
-
     public static boolean checkEmailExists(String email) {
         boolean flag = false;
         try {
