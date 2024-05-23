@@ -1,10 +1,5 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 public class UserType {
     // ################### Properties #########################
     private Integer userTypeId;
