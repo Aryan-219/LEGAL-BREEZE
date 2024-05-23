@@ -495,30 +495,30 @@ create table lawyer_types (
 insert into
     lawyer_types (type_name, profession_id)
 values
-    ('Intellectual property', 1),
-    ('Immigration lawyers', 1),
-    ('Legal services', 1),
-    ('Corporate law', 1),
-    ('Civil law', 1),
-    ('Criminal law', 1),
-    ('Labor lawyers', 1),
-    ('Personal injury lawyers', 1),
-    ('Public interest lawyer', 1),
-    ('Constitutional law', 1),
-    ('Corporate lawyer', 1),
+    ('Intellectual_property', 1),
+    ('Immigration_lawyers', 1),
+    ('Legal_services', 1),
+    ('Corporate_law', 1),
+    ('Civil_law', 1),
+    ('Criminal_law', 1),
+    ('Labor_lawyers', 1),
+    ('Personal_injury_lawyers', 1),
+    ('Public_interest_lawyer', 1),
+    ('Constitutional_law', 1),
+    ('Corporate_lawyer', 1),
     ('Mediation', 1),
     ('Taxation', 1),
     ('Bankruptcy', 1),
     ('Contracts', 1),
-    ('Family law', 1),
+    ('Family_law', 1),
     ('Judiciary', 1),
-    ('Law articles', 1),
-    ('Legal Aid', 1),
-    ('Company litigation', 1),
-    ('Consumer protection', 1),
-    ('Cyber crime', 1),
-    ('Divorce cases', 1),
-    ('File special leave petition', 1);
+    ('Law_articles', 1),
+    ('Legal_Aid', 1),
+    ('Company_litigation', 1),
+    ('Consumer_protection', 1),
+    ('Cyber_crime', 1),
+    ('Divorce_cases', 1),
+    ('File_special_leave_petition', 1);
 
 #################  lawyer_types-end ##############
 
@@ -534,11 +534,11 @@ create table notary_types (
 insert into notary_types 
 (type_name,profession_id) 
 values 
-('Traditional Notary Public',2),
-('Civil Law Notary',2),
-('Mobile Notary',2),
-('Electronic Notary',2),
-('Online Notary',2);
+('Traditional_Notary_Public',2),
+('Civil_Law_Notary',2),
+('Mobile_Notary',2),
+('Electronic_Notary',2),
+('Online_Notary',2);
 #################  notary_types-end ##############
 
 
@@ -554,11 +554,11 @@ create table docwriter_types (
 insert into docwriter_types 
 (type_name,profession_id) 
 values 
-('feature writers',3),
-('legal correspondents',3),
-('web writers',3),
+('feature_writers',3),
+('legal_correspondents',3),
+('web_writers',3),
 ('copywriters',3),
 ('bloggers',3),
-('corporate writers',3),
-('brief writers',3);
+('corporate_writers',3),
+('brief_writers',3);
 #################  docwriter_types-end ##############
