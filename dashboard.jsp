@@ -21,7 +21,7 @@
     <c:import url="/header.jsp" />
 
     <main>
-      <!-- Cards -->
+      <!-- First div -->
       <div
         class="flex flex-col md:flex-row justify-around m-4 p-4 md:space-x-4 space-y-4"
       >
@@ -47,7 +47,8 @@
               class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center"
             >
               Professionals qualified to offer advice about the law or represent
-              someone in legal matters.A lawyer can also be called an attorney, a solicitor, a counselor, a barrister.
+              someone in legal matters.A lawyer can also be called an attorney,
+              a solicitor, a counselor, a barrister.
             </p>
             <div class="flex items-center justify-center">
               <a
@@ -173,152 +174,7 @@
           </div>
         </div>
       </div>
-      <!-- Cards -->
       <!-- First div -->
-      <div
-        class="bg-slate-800 rounded-3xl md:mt-16 basis-1/4 flex-auto flex-col"
-      >
-        <!-- Profession Dropdown -->
-        <c:forEach var="profession" items="${professions}" varStatus="n">
-          <div class="text-center pt-4 mt-2">
-            <button
-              id="dropdownSearchButton"
-              data-dropdown-toggle="dropdownSearch${n.count}"
-              data-dropdown-placement="bottom"
-              class="text-white bg-slate-300 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
-              type="button"
-            >
-              <c:out value="${profession.name}" />
-              <svg
-                class="w-2.5 h-2.5 ms-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button>
-
-            <!-- Dropdown menu -->
-            <div
-              id="dropdownSearch${n.count}"
-              class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700"
-            >
-              <div class="p-3">
-                <label for="input-group-search" class="sr-only">Search</label>
-                <div class="relative">
-                  <div
-                    class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none"
-                  >
-                    <svg
-                      class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                      />
-                    </svg>
-                  </div>
-                  <input type="text" id="input-group-search" class="block w-full
-                  p-2 ps-10 text-sm text-gray-900 border border-gray-300
-                  rounded-lg bg-gray-50 focus:ring-blue-500
-                  focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500
-                  dark:placeholder-gray-400 dark:text-white
-                  dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Search
-                  <c:out value="${profession.name}" /> types" />
-                </div>
-              </div>
-              <ul
-                class="px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownSearchButton"
-              >
-                <c:choose>
-                  <c:when test="${profession.professionId == 1}"
-                    ><c:forEach var="lawyer" items="${lawyerTypes}">
-                      <li>
-                        <div
-                          class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
-                        >
-                          <input
-                            id="item1"
-                            type="radio"
-                            value=""
-                            class="w-4 h-4"
-                          />
-                          <label
-                            for="item1"
-                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                            ><a href="lawyers.do"> ${lawyer.typeName}</a></label
-                          >
-                        </div>
-                      </li>
-                    </c:forEach></c:when
-                  >
-                  <c:when test="${profession.professionId == 2}"
-                    ><c:forEach var="notary" items="${notaryTypes}">
-                      <li>
-                        <div
-                          class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
-                        >
-                          <input
-                            id="item1"
-                            type="radio"
-                            value=""
-                            class="w-4 h-4"
-                          />
-                          <label
-                            for="item1"
-                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                            ><a href="lawyers.do"> ${notary.typeName}</a></label
-                          >
-                        </div>
-                      </li>
-                    </c:forEach></c:when
-                  >
-                  <c:otherwise
-                    ><c:forEach var="docwriter" items="${docwriters}">
-                      <li>
-                        <div
-                          class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
-                        >
-                          <input
-                            id="item1"
-                            type="radio"
-                            value=""
-                            class="w-4 h-4"
-                          />
-                          <label
-                            for="item1"
-                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                            ><a href="lawyers.do">
-                              ${docwriter.typeName}</a
-                            ></label
-                          >
-                        </div>
-                      </li>
-                    </c:forEach></c:otherwise
-                  >
-                </c:choose>
-              </ul>
-            </div>
-          </div>
-        </c:forEach>
-      </div>
 
       <!-- Second div -->
       <div
@@ -506,11 +362,12 @@
 
         <!-- ############################ Bidding -e ############################## -->
       </div>
-
+      <!-- Second div -->
       <!-- Third div -->
       <div class="bg-slate-600 rounded-3xl mt-16 p-8 basis-1/4 h-full">
         <h1>Chat Section</h1>
       </div>
+      <!-- Third div -->
     </main>
 
     <c:import url="/footer.jsp" />

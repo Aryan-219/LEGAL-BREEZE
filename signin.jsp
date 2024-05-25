@@ -26,7 +26,7 @@
           <a href="index.do"
             ><i class="fa-solid fa-arrow-left" style="color: #ffffff"></i
           ></a>
-          <img src="static/img/download.jpg" alt="ricky-morty-image" />
+          <img src="static/media/images/download.jpg" alt="ricky-morty-image" />
           <h2>SIGNIN</h2>
 
           <div class="input-group">
