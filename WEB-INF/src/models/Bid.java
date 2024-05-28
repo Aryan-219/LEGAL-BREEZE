@@ -37,7 +37,38 @@ public class Bid {
     }
 
     // ################### Other Methods #########################
-    public static ArrayList<Bid> collectAllBids(Integer userId){
+    public static ArrayList<Bid> collectAllBids(){
+        ArrayList<Bid> bids = new ArrayList<Bid>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            String query = "select * from bids";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Bid bid = new Bid();
+                bid.setBidId(rs.getInt("bid_id"));
+                bid.setIssue(rs.getString("issue"));
+                bid.setDescription(rs.getString("description"));
+                bid.setHearings(rs.getInt("hearings"));
+                bid.setStatus(new Status(rs.getInt("status_id")));
+                bid.setBudget(rs.getInt("budget"));
+                bid.setStartDate(rs.getDate("start_date"));
+                bid.setDeadline(rs.getDate("deadline"));
+                bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
+                bid.setUser(new User(rs.getInt("user_id")));
+                bids.add(bid);
+
+            }
+            con.close();
+
+        }catch(ClassNotFoundException |SQLException e){
+            e.printStackTrace();
+        }
+        return bids;
+    }
+
+    public static ArrayList<Bid> collectUserBids(Integer userId){
         ArrayList<Bid> bids = new ArrayList<Bid>();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");

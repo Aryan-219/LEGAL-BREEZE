@@ -1,8 +1,10 @@
 package listeners;
 
+import models.Bid;
 import models.Provider;
 import models.ProviderType;
 import models.State;
+import models.User;
 import utils.AppUtility;
 
 import java.util.ArrayList;
@@ -10,14 +12,18 @@ import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.http.HttpSession;
 
 public class AppListenerImpl implements ServletContextListener {
     public void contextInitialized(ServletContextEvent e) {
         System.out.println("To chaliye shuru karte hai...");
+
+       
         ArrayList<State> states = State.collectAllStates();
         ArrayList<ProviderType> providerTypes = ProviderType.collectAllProviderTypes();
 
         ServletContext context = e.getServletContext();
+       
         context.setAttribute("providerTypes", providerTypes);
         context.setAttribute("states", states);
 
@@ -32,7 +38,7 @@ public class AppListenerImpl implements ServletContextListener {
 
         ArrayList<Provider> allProviders = Provider.collectAllProviders();
         context.setAttribute("allProviders", allProviders);
-        
+
         System.out.println("To dekhiye shuru hogya... ");
         AppUtility.appContext = context;
         AppUtility.fromEmail = context.getInitParameter("from_email");

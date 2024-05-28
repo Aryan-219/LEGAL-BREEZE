@@ -50,8 +50,12 @@ public class SigninServlet extends HttpServlet {
             System.out.println("Flag result for sql query" + flag);
             if (result == 1) {
                 session.setAttribute("user", user);
+                if(user.getUserType().getUserTypeId()==1){
+                    nextURL = "dashboard.do";
+                }else{
+                    nextURL = "provider_dashboard.do";
+                }
                 
-                nextURL = "dashboard.do";
             }else if(result == 2){
                 // Please verify your email . 
                 // Provide verificaion link
