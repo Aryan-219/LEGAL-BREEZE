@@ -364,10 +364,86 @@
       </div>
       <!-- Second div -->
       <!-- Third div -->
-      <div class="bg-slate-600 rounded-3xl mt-16 p-8 basis-1/4 h-full">
+      <!-- <div class="bg-slate-600 rounded-3xl mt-16 p-8 basis-1/4 h-full">
         <h1>Chat Section</h1>
-      </div>
+      </div> -->
       <!-- Third div -->
+
+      <!-- Fourth div -->
+      <div
+        class="w-full p-4 my-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <div class="flex mb-4 justify-center">
+          <h5
+            class="text-4xl font-bold leading-none text-gray-900 dark:text-white"
+          >
+            Your Cases
+          </h5>
+        </div>
+        <div class="flow-root">
+          <ul role="list" class="divide-gray-200 dark:divide-gray-700">
+            <c:forEach var="inc" items="${cases}">
+              <li class="m-4">
+                <div
+                  class="border rounded-md p-4 flex flex-col justify-center items-center space-y-4"
+                >
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5
+                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                    >
+                      Issue :
+                    </h5>
+                    <p
+                      class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400"
+                    >
+                      ${inc.issue}
+                    </p>
+                  </div>
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5
+                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                    >
+                      Description :
+                    </h5>
+                    <p
+                      class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400"
+                    >
+                      ${inc.description}
+                    </p>
+                  </div>
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5
+                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                    >
+                      Status :
+                    </h5>
+                    <p
+                      class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400"
+                    >
+                      <c:forEach var="st" items="${status}">
+                        <c:if test="${st.statusId==inc.status.statusId}">
+                          <c:out value="${st.name}" />
+                        </c:if>
+                      </c:forEach>
+                    </p>
+                  </div>
+                  <div>
+                    <a href="all_applicants.do">
+                      <button
+                        type="button"
+                        class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      >
+                        Show Applicants
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </c:forEach>
+          </ul>
+        </div>
+      </div>
+      <!-- Fourth div -->
     </main>
 
     <c:import url="/footer.jsp" />

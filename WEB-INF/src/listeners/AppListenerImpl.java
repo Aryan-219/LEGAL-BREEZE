@@ -4,6 +4,7 @@ import models.Bid;
 import models.Provider;
 import models.ProviderType;
 import models.State;
+import models.Status;
 import models.User;
 import utils.AppUtility;
 
@@ -38,6 +39,9 @@ public class AppListenerImpl implements ServletContextListener {
 
         ArrayList<Provider> allProviders = Provider.collectAllProviders();
         context.setAttribute("allProviders", allProviders);
+
+        ArrayList<Status> status = Status.collectAllStatus();
+        context.setAttribute("status", status);
 
         System.out.println("To dekhiye shuru hogya... ");
         AppUtility.appContext = context;
