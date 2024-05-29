@@ -53,6 +53,7 @@ public class SigninServlet extends HttpServlet {
                 if(user.getUserType().getUserTypeId()==1){
                     nextURL = "dashboard.do";
                 }else{
+                    
                     nextURL = "provider_dashboard.do";
                 }
                 

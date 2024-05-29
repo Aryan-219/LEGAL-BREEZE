@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 import utils.AppUtility;
 
@@ -58,6 +57,25 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    public boolean updateUserStatus(Integer userId, Integer statusId){
+        boolean flag=false;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            String query = "update users set status_id=? where user_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, statusId);
+            ps.setInt(2, userId);
+            int res = ps.executeUpdate();
+            if(res==1){
+                flag=true;
+            }
+            con.close();
+        }catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
     // ################### Other Methods #########################
     public static boolean checkEmailExists(String email) {
@@ -80,6 +98,7 @@ public class User {
         return flag;
     }
     public static int checkEmail(String email) {
+        System.out.println("email received: " + email);
         int result = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -89,7 +108,7 @@ public class User {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if(rs.getInt(19)==1){
+                if(rs.getInt(19)==1|| rs.getInt(19)==7){
                     result = 1;
                     System.out.println("Verified Email found ");
                 }else if(rs.getInt(19)==2){
@@ -168,7 +187,7 @@ public class User {
             ps.setString(2, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getInt(19) == 1) {
+                if (rs.getInt(19) == 1 || rs.getInt(19) == 7) {
                     
                     // Update the user object with all the variables
                     userId = rs.getInt(1);
@@ -180,7 +199,7 @@ public class User {
                     state = new State(rs.getInt(8));
                     userType = new UserType(rs.getInt(10));
                     joinedOn = rs.getTimestamp(15);
-                    // status = new Status(rs.getInt(19));
+                    status = new Status(rs.getInt(19));
 
                     flag = 1;
                 }else{

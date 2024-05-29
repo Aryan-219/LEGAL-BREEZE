@@ -32,6 +32,7 @@ const passwordErr = document.querySelector("#password_err");
 
 let emllbl = document.querySelector("#emllbl");
 const checkEmailExists = async (email) => {
+  console.log(email);
   const response = await fetch("check_email.do?email=" + email);
   const result = await response.text();
   return result;

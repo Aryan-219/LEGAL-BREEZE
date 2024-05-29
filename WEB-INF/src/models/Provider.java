@@ -15,7 +15,8 @@ public class Provider extends User {
     Integer providerId;
     User user;
     ProviderType providerType;
-
+    
+    
     // ################### Constructors ########################
     public Provider(String name, String email, String password, String phone, State state, UserType userType,
             String otp) {
@@ -24,6 +25,24 @@ public class Provider extends User {
 
     public Provider() {
 
+    }
+    public boolean updateStatus(Integer lawyerId){
+        boolean flag=false;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            String query = "update providers set status_id=7 where user_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, lawyerId);
+            int res = ps.executeUpdate();
+            if(res==1){
+                flag=true;
+            }
+            con.close();
+        }catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 
     // ################### Other Methods #######################
@@ -79,26 +98,26 @@ public class Provider extends User {
                 Provider provider = new Provider();
                 provider.setProviderId(rs.getInt(1));
                 provider.setProviderType(new ProviderType(rs.getInt("provider_type_id")));
-                provider.setUserId(rs.getInt(4));
-                provider.setName(rs.getString(5));
-                provider.setEmail(rs.getString(6));
-                provider.setPassword(rs.getString(7));
-                provider.setPhone(rs.getString(8));
-                provider.setAddress(rs.getString(9));
-                provider.setPin(rs.getString(10));
-                provider.setState(new State(rs.getInt(11)));
-                provider.setGender(new Gender(rs.getInt(12)));
-                provider.setUserType(new UserType(rs.getInt(13)));
-                provider.setCategory(new Category(rs.getInt(14)));
-                provider.setExperience(rs.getInt(15));
-                provider.setProfilePic(rs.getString(16));
-                provider.setBadge(new Badge(rs.getInt(17)));
-                provider.setJoinedOn(rs.getTimestamp(18));
-                provider.setCasesFought(rs.getInt(19));
-                provider.setCasesWon(rs.getInt(20));
-                provider.setSuccessRatio(21);
-                provider.setStatus(new Status(22));
-                provider.setUid(rs.getString(23));
+                provider.setStatus(new Status(rs.getInt("status_id")));
+                provider.setUserId(rs.getInt(5));
+                provider.setName(rs.getString(6));
+                provider.setEmail(rs.getString(7));
+                provider.setPassword(rs.getString(8));
+                provider.setPhone(rs.getString(9));
+                provider.setAddress(rs.getString(10));
+                provider.setPin(rs.getString(11));
+                provider.setState(new State(rs.getInt(12)));
+                provider.setGender(new Gender(rs.getInt(13)));
+                provider.setUserType(new UserType(rs.getInt(14)));
+                provider.setCategory(new Category(rs.getInt(15)));
+                provider.setExperience(rs.getInt(16));
+                provider.setProfilePic(rs.getString(17));
+                provider.setBadge(new Badge(rs.getInt(18)));
+                provider.setJoinedOn(rs.getTimestamp(19));
+                provider.setCasesFought(rs.getInt(20));
+                provider.setCasesWon(rs.getInt(21));
+                provider.setSuccessRatio(22);
+                provider.setUid(rs.getString(24));
                 providers.add(provider);
             }
         } catch (SQLException | ClassNotFoundException e) {
