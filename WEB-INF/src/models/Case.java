@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 public class Case {
     // ################### Properties #########################
     private Integer caseId;
@@ -21,6 +23,9 @@ public class Case {
     private Status status;
     private Court court;
     private Integer budget;
+
+    public static ServletContext appContext;
+    public static String conURL;
 
     public Integer getBudget() {
         return budget;
@@ -52,36 +57,37 @@ public class Case {
         this.budget = budget;
     }
 
-    public static boolean updateCaseStatus(Integer status,Integer providerId, Integer caseId ){
+    public static boolean updateCaseStatus(Integer status, Integer providerId, Integer caseId) {
         boolean flag = false;
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "update cases set status_id=? where provider_id=? and case_id=?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1,status);
+            ps.setInt(1, status);
             ps.setInt(2, providerId);
             ps.setInt(3, caseId);
             int res = ps.executeUpdate();
-            if(res == 1){
+            if (res == 1) {
                 flag = true;
             }
             con.close();
-        }catch(ClassNotFoundException|SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return flag;
     }
+
     public static ArrayList<Case> collectAllCases(Integer userId) {
         ArrayList<Case> allCases = new ArrayList<Case>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from cases as c inner join users as u where user_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Case c = new Case();
                 c.setCaseId(rs.getInt("case_id"));
                 c.setIssue(rs.getString("issue"));
@@ -106,7 +112,7 @@ public class Case {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "insert into cases (issue, description, seeker_id, provider_id, start_date, end_date, court_id,budget) values (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, issue);

@@ -1,10 +1,15 @@
 package models;
 
+import javax.servlet.ServletContext;
+
 public class BidApplicant {
     // ################### Properties #########################
     private Integer bidApplicantId;
     private Bid bid;
     private User user;
+
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public BidApplicant() {

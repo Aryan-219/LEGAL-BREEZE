@@ -537,7 +537,6 @@ values
 #################  provider_types-end ##############
 
 
-// Pending work // 
 #################  providers-start ##############
 create table providers 
 (

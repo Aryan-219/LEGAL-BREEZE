@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import javax.servlet.ServletContext;
+
 import utils.AppUtility;
 
 public class User {
@@ -31,8 +33,10 @@ public class User {
     private Integer successRatio;
     private Status status;
     private String uid;
-
     private String otp;
+
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public User() {
@@ -57,21 +61,22 @@ public class User {
         this.password = password;
         this.email = email;
     }
-    public boolean updateUserStatus(Integer userId, Integer statusId){
-        boolean flag=false;
-        try{
+
+    public boolean updateUserStatus(Integer userId, Integer statusId) {
+        boolean flag = false;
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "update users set status_id=? where user_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, statusId);
             ps.setInt(2, userId);
             int res = ps.executeUpdate();
-            if(res==1){
-                flag=true;
+            if (res == 1) {
+                flag = true;
             }
             con.close();
-        }catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return flag;
@@ -82,7 +87,7 @@ public class User {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select user_id from users where email=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, email);
@@ -97,21 +102,22 @@ public class User {
         }
         return flag;
     }
+
     public static int checkEmail(String email) {
         System.out.println("email received: " + email);
         int result = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from users where email=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                if(rs.getInt(19)==1|| rs.getInt(19)==7){
+                if (rs.getInt(19) == 1 || rs.getInt(19) == 7) {
                     result = 1;
                     System.out.println("Verified Email found ");
-                }else if(rs.getInt(19)==2){
+                } else if (rs.getInt(19) == 2) {
                     result = 2;
                     System.out.println("Unverified Email found ");
                 }
@@ -123,12 +129,12 @@ public class User {
         System.out.println(result);
         return result;
     }
-    
+
     public static boolean checkPhoneExists(String phone) {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select user_id from users where phone=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, phone);
@@ -148,7 +154,7 @@ public class User {
         int x = -1;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
 
             String query = "update users set status_id=1,otp='' where email=? and otp=? and status_id!=1";
 
@@ -175,12 +181,12 @@ public class User {
     }
 
     public int signInUser() {
-        int flag =0;
+        int flag = 0;
         // boolean flag = false;
         // Date date = new Date().getTime()
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from users where password=? and email=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, password);
@@ -188,7 +194,7 @@ public class User {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(19) == 1 || rs.getInt(19) == 7) {
-                    
+
                     // Update the user object with all the variables
                     userId = rs.getInt(1);
                     name = rs.getString(2);
@@ -202,7 +208,7 @@ public class User {
                     status = new Status(rs.getInt(19));
 
                     flag = 1;
-                }else{
+                } else {
                     flag = 2;
                 }
             }
@@ -218,7 +224,7 @@ public class User {
         // Date date = new Date().getTime()
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "insert into users (name,email,password,phone,state_id,user_type_id,joined_on,otp) values (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             System.out.println(name + " " + email + " " + password + " " + phone + " " + state.getStateId()

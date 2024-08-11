@@ -1,9 +1,14 @@
 package models;
 
+import javax.servlet.ServletContext;
+
 public class UserType {
     // ################### Properties #########################
     private Integer userTypeId;
     private String name;
+
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public UserType() {

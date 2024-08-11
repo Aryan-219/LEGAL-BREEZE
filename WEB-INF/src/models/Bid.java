@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 public class Bid {
     // ################### Properties #########################
     private Integer bidId;
@@ -22,6 +24,8 @@ public class Bid {
     private Date deadline;
     private Integer noOfApplicants;
     private User user;
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public Bid() {
@@ -37,15 +41,15 @@ public class Bid {
     }
 
     // ################### Other Methods #########################
-    public static ArrayList<Bid> collectAllBids(){
+    public static ArrayList<Bid> collectAllBids() {
         ArrayList<Bid> bids = new ArrayList<Bid>();
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from bids";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Bid bid = new Bid();
                 bid.setBidId(rs.getInt("bid_id"));
                 bid.setIssue(rs.getString("issue"));
@@ -62,22 +66,22 @@ public class Bid {
             }
             con.close();
 
-        }catch(ClassNotFoundException |SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return bids;
     }
 
-    public static ArrayList<Bid> collectUserBids(Integer userId){
+    public static ArrayList<Bid> collectUserBids(Integer userId) {
         ArrayList<Bid> bids = new ArrayList<Bid>();
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from bids where user_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Bid bid = new Bid();
                 bid.setBidId(rs.getInt("bid_id"));
                 bid.setIssue(rs.getString("issue"));
@@ -94,7 +98,7 @@ public class Bid {
             }
             con.close();
 
-        }catch(ClassNotFoundException |SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return bids;
@@ -104,7 +108,7 @@ public class Bid {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "insert into bids (issue, description, budget, start_date,deadline, user_id) value (?, ?, ?,?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, issue);

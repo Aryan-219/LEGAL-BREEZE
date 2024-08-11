@@ -1,15 +1,19 @@
 package models;
 
+import javax.servlet.ServletContext;
+
 public class Badge {
     // ################### Properties #########################
     private Integer badgeId;
     private String name;
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public Badge() {
 
     }
-    
+
     // ################### Getters-Setters #########################
 
     public Badge(Integer badgeId) {

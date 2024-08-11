@@ -1,18 +1,21 @@
 package models;
 
+import javax.servlet.ServletContext;
+
 public class UserQualification {
     // ################### Properties #########################
     private Integer userQualificationId;
     private User user;
     private Qualification qualification;
 
-    
+    public static ServletContext appContext;
+    public static String conURL;
+
     // ################### Constructors #########################
     public UserQualification() {
 
     }
-    
-    
+
     // ################### Getters-Setters #########################
     public Integer getUserQualificationId() {
         return userQualificationId;

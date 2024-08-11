@@ -7,11 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 public class Profession {
     // ################### Properties #########################
     private Integer professionId;
     private String name;
     private UserType type;
+
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public Profession() {
@@ -21,16 +26,16 @@ public class Profession {
         this.professionId = professionId;
     }
 
-        // ################### Other Methods #########################
+    // ################### Other Methods #########################
     public static ArrayList<Profession> collectAllProfessions() {
         ArrayList<Profession> professions = new ArrayList<Profession>();
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from profession";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Profession profession = new Profession();
                 profession.setProfessionId(rs.getInt("profession_id"));
                 profession.setName(rs.getString("name"));
@@ -38,11 +43,12 @@ public class Profession {
                 professions.add(profession);
             }
             con.close();
-        }catch(ClassNotFoundException|SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return professions;
     }
+
     // ################### Getters-Setters #########################
     public Integer getProfessionId() {
         return professionId;

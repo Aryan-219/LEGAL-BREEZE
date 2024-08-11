@@ -1,17 +1,21 @@
 package models;
 
+import javax.servlet.ServletContext;
+
 public class Gender {
     // ################### Properties #########################
     private Integer genderId;
     private String name;
 
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public Gender() {
 
     }
 
-    public Gender(Integer genderId){
+    public Gender(Integer genderId) {
         this.genderId = genderId;
     }
 

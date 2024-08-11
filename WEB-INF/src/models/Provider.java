@@ -10,13 +10,17 @@ import java.sql.Statement;
 import utils.AppUtility;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 public class Provider extends User {
     // ################### Properties #########################
     Integer providerId;
     User user;
     ProviderType providerType;
-    
-    
+
+    public static ServletContext appContext;
+    public static String conURL;
+
     // ################### Constructors ########################
     public Provider(String name, String email, String password, String phone, State state, UserType userType,
             String otp) {
@@ -26,20 +30,21 @@ public class Provider extends User {
     public Provider() {
 
     }
-    public boolean updateStatus(Integer lawyerId){
-        boolean flag=false;
-        try{
+
+    public boolean updateStatus(Integer lawyerId) {
+        boolean flag = false;
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "update providers set status_id=7 where user_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, lawyerId);
             int res = ps.executeUpdate();
-            if(res==1){
-                flag=true;
+            if (res == 1) {
+                flag = true;
             }
             con.close();
-        }catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return flag;
@@ -50,7 +55,7 @@ public class Provider extends User {
         ArrayList<Provider> providers = new ArrayList<Provider>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from providers as p inner join users as u where u.user_type_id=2";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -90,7 +95,7 @@ public class Provider extends User {
         ArrayList<Provider> providers = new ArrayList<Provider>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from providers as p inner join users as u where u.user_id=p.user_id and p.provider_type_id<25 and p.provider_type_id>0;";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -125,11 +130,12 @@ public class Provider extends User {
         }
         return providers;
     }
+
     public static ArrayList<Provider> collectAllNotaries() {
         ArrayList<Provider> providers = new ArrayList<Provider>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from providers as p inner join users as u where u.user_id=p.user_id and p.provider_type_id<30 and p.provider_type_id>24;";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -164,11 +170,12 @@ public class Provider extends User {
         }
         return providers;
     }
+
     public static ArrayList<Provider> collectAllDocwriters() {
         ArrayList<Provider> providers = new ArrayList<Provider>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from providers as p inner join users as u where u.user_id=p.user_id and p.provider_type_id>29;";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -208,7 +215,7 @@ public class Provider extends User {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "insert into users (name,email,password,phone,state_id,user_type_id,joined_on,otp) values (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -241,7 +248,7 @@ public class Provider extends User {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "insert into providers (user_id,provider_type_id) values (?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, userId);

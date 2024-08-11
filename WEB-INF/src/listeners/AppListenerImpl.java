@@ -1,11 +1,22 @@
 package listeners;
 
+import models.Badge;
 import models.Bid;
+import models.BidApplicant;
+import models.Case;
+import models.Category;
+import models.Country;
+import models.Court;
+import models.Gender;
+import models.Profession;
 import models.Provider;
 import models.ProviderType;
+import models.Qualification;
 import models.State;
 import models.Status;
 import models.User;
+import models.UserQualification;
+import models.UserType;
 import utils.AppUtility;
 
 import java.util.ArrayList;
@@ -19,14 +30,76 @@ public class AppListenerImpl implements ServletContextListener {
     public void contextInitialized(ServletContextEvent e) {
         System.out.println("To chaliye shuru karte hai...");
 
-       
-        ArrayList<State> states = State.collectAllStates();
-        ArrayList<ProviderType> providerTypes = ProviderType.collectAllProviderTypes();
-
         ServletContext context = e.getServletContext();
-       
-        context.setAttribute("providerTypes", providerTypes);
+
+        String host = context.getInitParameter("host");
+        String unmSql = context.getInitParameter("unmSql");
+        String pwdSql = context.getInitParameter("pwdSql");
+        String dbName = context.getInitParameter("dbName");
+        String port = context.getInitParameter("port");
+
+        String conURL = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?user=" + unmSql + "&password=" + pwdSql;
+
+        Badge.appContext = context;
+        Badge.conURL = conURL;
+
+        Bid.appContext = context;
+        Bid.conURL = conURL;
+
+        BidApplicant.appContext = context;
+        BidApplicant.conURL = conURL;
+
+        Case.appContext = context;
+        Case.conURL = conURL;
+
+        Category.appContext = context;
+        Category.conURL = conURL;
+
+        Country.appContext = context;
+        Country.conURL = conURL;
+
+        Court.appContext = context;
+        Court.conURL = conURL;
+
+        Gender.appContext = context;
+        Gender.conURL = conURL;
+
+        Profession.appContext = context;
+        Profession.conURL = conURL;
+
+        Provider.appContext = context;
+        Provider.conURL = conURL;
+        
+        ProviderType.appContext = context;
+        ProviderType.conURL = conURL;
+        
+        Qualification.appContext = context;
+        Qualification.conURL = conURL;
+
+        State.appContext = context;
+        State.conURL = conURL;
+
+        Status.appContext = context;
+        Status.conURL = conURL;
+
+        User.appContext = context;
+        User.conURL = conURL;
+
+        UserQualification.appContext = context;
+        UserQualification.conURL = conURL;
+
+        UserType.appContext = context;
+        UserType.conURL = conURL;
+
+        AppUtility.appContext = context;
+        AppUtility.fromEmail = context.getInitParameter("from_email");
+        AppUtility.fromEmailPassword = context.getInitParameter("from_email_password");
+
+        ArrayList<State> states = State.collectAllStates();
         context.setAttribute("states", states);
+
+        ArrayList<ProviderType> providerTypes = ProviderType.collectAllProviderTypes();
+        context.setAttribute("providerTypes", providerTypes);
 
         ArrayList<ProviderType> lawyerTypes = ProviderType.collectAllLawyerTypes();
         context.setAttribute("lawyerTypes", lawyerTypes);
@@ -44,9 +117,7 @@ public class AppListenerImpl implements ServletContextListener {
         context.setAttribute("status", status);
 
         System.out.println("To dekhiye shuru hogya... ");
-        AppUtility.appContext = context;
-        AppUtility.fromEmail = context.getInitParameter("from_email");
-        AppUtility.fromEmailPassword = context.getInitParameter("from_email_password");
+
     }
 
     public void contextDestroyed(ServletContextEvent e) {

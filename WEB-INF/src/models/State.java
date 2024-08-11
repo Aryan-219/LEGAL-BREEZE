@@ -8,18 +8,25 @@ import java.sql.Connection;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 public class State {
     // ################### Properties #########################
+
+    public static ServletContext appContext;
+    public static String conURL;
+    
     private Integer stateId;
     private String name;
     private Country country;
+
 
     // ################### Constructors #########################
     public State() {
 
     }
 
-    public State(Integer stateId){
+    public State(Integer stateId) {
         this.stateId = stateId;
     }
 
@@ -34,7 +41,8 @@ public class State {
         ArrayList<State> states = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            System.out.println(conURL);
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from states";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();

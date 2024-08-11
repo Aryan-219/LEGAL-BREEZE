@@ -8,10 +8,15 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
 public class Status {
     // ################### Properties #########################
     private Integer statusId;
     private String name;
+
+    public static ServletContext appContext;
+    public static String conURL;
 
     // ################### Constructors #########################
     public Status() {
@@ -23,26 +28,27 @@ public class Status {
     }
 
     // ################### Getters-Setters #########################
-    public static ArrayList<Status> collectAllStatus(){
+    public static ArrayList<Status> collectAllStatus() {
         ArrayList<Status> statusList = new ArrayList<Status>();
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/lbdb?user=root&password=1234");
+            Connection con = DriverManager.getConnection(conURL);
             String query = "select * from status";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Status status = new Status();
                 status.setStatusId(rs.getInt(1));
                 status.setName(rs.getString(2));
                 statusList.add(status);
             }
             con.close();
-        }catch(ClassNotFoundException|SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return statusList;
     }
+
     // ################### Getters-Setters #########################
     public int getStatusId() {
         return statusId;

@@ -1,19 +1,25 @@
 package models;
 
+import javax.servlet.ServletContext;
+
 public class Country {
     // ################### Properties #########################
     private Integer countryId;
     private String name;
     private String isdCode;
 
+    public static ServletContext appContext;
+    public static String conURL;
+
     // ################### Constructors #########################
     public Country() {
 
     }
 
-    public Country(Integer countryId){
+    public Country(Integer countryId) {
         this.countryId = countryId;
     }
+
     // ################### Getters-Setters #########################
     public int getCountryId() {
         return countryId;
