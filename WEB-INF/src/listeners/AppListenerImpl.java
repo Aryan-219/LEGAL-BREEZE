@@ -1,22 +1,24 @@
 package listeners;
+import models.*;
 
-import models.Badge;
-import models.Bid;
-import models.BidApplicant;
-import models.Case;
-import models.Category;
-import models.Country;
-import models.Court;
-import models.Gender;
-import models.Profession;
-import models.Provider;
-import models.ProviderType;
-import models.Qualification;
-import models.State;
-import models.Status;
-import models.User;
-import models.UserQualification;
-import models.UserType;
+// import models.Badge;
+// import models.Bid;
+// import models.BidApplicant;
+// import models.Case;
+// import models.Category;
+// import models.Country;
+// import models.Court;
+// import models.Gender;
+// import models.Profession;
+// import models.Provider;
+// import models.ProviderType;
+// import models.Qualification;
+// import models.State;
+// import models.Status;
+// import models.User;
+// import models.UserQualification;
+// import models.UserType;
+
 import utils.AppUtility;
 
 import java.util.ArrayList;
@@ -28,9 +30,12 @@ import javax.servlet.http.HttpSession;
 
 public class AppListenerImpl implements ServletContextListener {
     public void contextInitialized(ServletContextEvent e) {
-        System.out.println("To chaliye shuru karte hai...");
+        System.out.println("---------------------------- Starting LEGAL-BREEZE --------------------------------");
 
         ServletContext context = e.getServletContext();
+        String[] models = { "Badge", "Bid", "BidApplicant", "Case", "Category", "Country", "Court", "Gender",
+                "Profession", "Provider", "ProviderType", "Qualification", "State",
+                "Status", "User", "UserQualification", "UserType" };
 
         String host = context.getInitParameter("host");
         String unmSql = context.getInitParameter("unmSql");
@@ -39,57 +44,67 @@ public class AppListenerImpl implements ServletContextListener {
         String port = context.getInitParameter("port");
 
         String conURL = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?user=" + unmSql + "&password=" + pwdSql;
+        for (String modelClass : models) {
+            try {
+                Class<?> modelClassObj = Class.forName("models." + modelClass);
+                java.lang.reflect.Field appContextField = modelClassObj.getField("appContext");
+                java.lang.reflect.Field connectionURL = modelClassObj.getField("conURL");
+                connectionURL.set(null, conURL);
+                appContextField.set(null, context);
+            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
+        }
+        // Badge.appContext = context;
+        // Badge.conURL = conURL;
 
-        Badge.appContext = context;
-        Badge.conURL = conURL;
+        // Bid.appContext = context;
+        // Bid.conURL = conURL;
 
-        Bid.appContext = context;
-        Bid.conURL = conURL;
+        // BidApplicant.appContext = context;
+        // BidApplicant.conURL = conURL;
 
-        BidApplicant.appContext = context;
-        BidApplicant.conURL = conURL;
+        // Case.appContext = context;
+        // Case.conURL = conURL;
 
-        Case.appContext = context;
-        Case.conURL = conURL;
+        // Category.appContext = context;
+        // Category.conURL = conURL;
 
-        Category.appContext = context;
-        Category.conURL = conURL;
+        // Country.appContext = context;
+        // Country.conURL = conURL;
 
-        Country.appContext = context;
-        Country.conURL = conURL;
+        // Court.appContext = context;
+        // Court.conURL = conURL;
 
-        Court.appContext = context;
-        Court.conURL = conURL;
+        // Gender.appContext = context;
+        // Gender.conURL = conURL;
 
-        Gender.appContext = context;
-        Gender.conURL = conURL;
+        // Profession.appContext = context;
+        // Profession.conURL = conURL;
 
-        Profession.appContext = context;
-        Profession.conURL = conURL;
+        // Provider.appContext = context;
+        // Provider.conURL = conURL;
 
-        Provider.appContext = context;
-        Provider.conURL = conURL;
-        
-        ProviderType.appContext = context;
-        ProviderType.conURL = conURL;
-        
-        Qualification.appContext = context;
-        Qualification.conURL = conURL;
+        // ProviderType.appContext = context;
+        // ProviderType.conURL = conURL;
 
-        State.appContext = context;
-        State.conURL = conURL;
+        // Qualification.appContext = context;
+        // Qualification.conURL = conURL;
 
-        Status.appContext = context;
-        Status.conURL = conURL;
+        // State.appContext = context;
+        // State.conURL = conURL;
 
-        User.appContext = context;
-        User.conURL = conURL;
+        // Status.appContext = context;
+        // Status.conURL = conURL;
 
-        UserQualification.appContext = context;
-        UserQualification.conURL = conURL;
+        // User.appContext = context;
+        // User.conURL = conURL;
 
-        UserType.appContext = context;
-        UserType.conURL = conURL;
+        // UserQualification.appContext = context;
+        // UserQualification.conURL = conURL;
+
+        // UserType.appContext = context;
+        // UserType.conURL = conURL;
 
         AppUtility.appContext = context;
         AppUtility.fromEmail = context.getInitParameter("from_email");
@@ -116,7 +131,7 @@ public class AppListenerImpl implements ServletContextListener {
         ArrayList<Status> status = Status.collectAllStatus();
         context.setAttribute("status", status);
 
-        System.out.println("To dekhiye shuru hogya... ");
+        System.out.println("---------------------------- LEGAL-BREEZE started successfully --------------------------------");
 
     }
 
