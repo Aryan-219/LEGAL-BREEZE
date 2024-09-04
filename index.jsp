@@ -444,12 +444,12 @@
                     <h5
                       class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                     >
-                      UserId : &nbsp;
+                      Deadline : &nbsp;
                     </h5>
                     <p
                       class="text-2xl font-normal text-gray-700 dark:text-gray-400"
                     >
-                      ${bid.user.userId}
+                      ${bid.deadline}
                     </p>
                   </div>
                   <div class="flex md:flex-row flex-col leading-normal">

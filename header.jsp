@@ -27,8 +27,14 @@
             </div>
             <ul class="py-2" aria-labelledby="user-menu-button">
               <li>
-                <a href="dashboard.do"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                <c:choose >
+                  <c:when test="${user.userType.userTypeId==1}">
+                    <a href='dashboard.do' class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                  </c:when>
+                  <c:otherwise >
+                    <a href='provider_dashboard.do' class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                  </c:otherwise>
+                </c:choose>
               </li>
               <li>
                 <a href="#"

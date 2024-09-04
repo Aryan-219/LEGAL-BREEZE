@@ -45,7 +45,7 @@ public class SaveCaseDetails extends HttpServlet {
         if (flag) {
             Provider p = new Provider();
             flag=p.updateStatus(lawyerId);
-            flag=p.updateUserStatus(lawyerId,7);
+            // flag=p.updateUserStatus(lawyerId,7);
             if(flag){
 
                 System.out.println("Result of sql statement: " + flag);

@@ -547,3 +547,17 @@ create table providers
     constraint fk_p_providers_types foreign key (provider_type_id) references provider_types (provider_type_id)
 );
 #################  providers-end ##############
+
+#################  courts-start ##############
+create table courts
+(
+    court_id int auto_increment primary key,
+    name varchar(100) not null,
+    state_id int not null,
+    constraint fk_courts_states foreign key (state_id) references states (state_id)
+)
+#################  courts-end ##############
+
+alter table cases add column budget int not null default 0;
+
+insert into status (status_id,name) value (7,'engaged');

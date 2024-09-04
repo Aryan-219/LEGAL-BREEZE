@@ -62,11 +62,21 @@
 
   <context-param>
     <param-name>from_email</param-name>
+    <param-value>aryanagrawal2002@outlook.com</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>from_email_password</param-name>
+    <param-value>Aryan@21</param-value>
+  </context-param>
+
+  <!-- <context-param>
+    <param-name>from_email</param-name>
     <param-value>agrawalmukesh22@outlook.com</param-value>
   </context-param>
 
   <context-param>
     <param-name>from_email_password</param-name>
     <param-value>Mukesh@22</param-value>
-  </context-param>
+  </context-param> -->
 </web-app>
