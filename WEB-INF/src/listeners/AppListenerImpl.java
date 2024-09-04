@@ -1,4 +1,5 @@
 package listeners;
+
 import models.*;
 
 // import models.Badge;
@@ -20,13 +21,14 @@ import models.*;
 // import models.UserType;
 
 import utils.AppUtility;
+import utils.EmailSender;
 
 import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpSession;
+// import javax.servlet.http.HttpSession;
 
 public class AppListenerImpl implements ServletContextListener {
     public void contextInitialized(ServletContextEvent e) {
@@ -55,56 +57,15 @@ public class AppListenerImpl implements ServletContextListener {
                 ex.printStackTrace();
             }
         }
-        // Badge.appContext = context;
-        // Badge.conURL = conURL;
 
-        // Bid.appContext = context;
-        // Bid.conURL = conURL;
+        String server = context.getInitParameter("server");
+        String applicationName = context.getInitParameter("application_name");
+        
+        EmailSender.appContext = context;
+        EmailSender.server = server;
+        EmailSender.applicationName = applicationName;
 
-        // BidApplicant.appContext = context;
-        // BidApplicant.conURL = conURL;
-
-        // Case.appContext = context;
-        // Case.conURL = conURL;
-
-        // Category.appContext = context;
-        // Category.conURL = conURL;
-
-        // Country.appContext = context;
-        // Country.conURL = conURL;
-
-        // Court.appContext = context;
-        // Court.conURL = conURL;
-
-        // Gender.appContext = context;
-        // Gender.conURL = conURL;
-
-        // Profession.appContext = context;
-        // Profession.conURL = conURL;
-
-        // Provider.appContext = context;
-        // Provider.conURL = conURL;
-
-        // ProviderType.appContext = context;
-        // ProviderType.conURL = conURL;
-
-        // Qualification.appContext = context;
-        // Qualification.conURL = conURL;
-
-        // State.appContext = context;
-        // State.conURL = conURL;
-
-        // Status.appContext = context;
-        // Status.conURL = conURL;
-
-        // User.appContext = context;
-        // User.conURL = conURL;
-
-        // UserQualification.appContext = context;
-        // UserQualification.conURL = conURL;
-
-        // UserType.appContext = context;
-        // UserType.conURL = conURL;
+        System.out.println("Server name: " + server + ". Application name: " + applicationName);
 
         AppUtility.appContext = context;
         AppUtility.fromEmail = context.getInitParameter("from_email");

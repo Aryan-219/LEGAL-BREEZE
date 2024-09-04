@@ -150,7 +150,7 @@ phone.addEventListener("blur", () => {
           phoneFlag = true;
           console.log("Duplicate does not exists");
           // Do the functionality
-          otpButton.style.display = "block";
+          // otpButton.style.display = "block";
         }
       })
       .catch((err) => {

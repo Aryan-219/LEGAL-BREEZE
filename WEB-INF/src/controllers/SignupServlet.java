@@ -29,55 +29,57 @@ public class SignupServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        String responseToken = request.getParameter("g-recaptcha-response");
+        // String responseToken = request.getParameter("g-recaptcha-response");
 
         // #######################################
-        ServletContext context = getServletContext();
+        // ServletContext context = getServletContext();
 
-        String recaptchaURL = context.getInitParameter("recaptcha_url");
-        String secretKey = context.getInitParameter("secret_key");
+        // String recaptchaURL = context.getInitParameter("recaptcha_url");
+        // String secretKey = context.getInitParameter("secret_key");
 
-        boolean flag = AppUtility.checkGoogleRecaptchaResponse(recaptchaURL, responseToken, secretKey);
+        // boolean flag = AppUtility.checkGoogleRecaptchaResponse(recaptchaURL,
+        // responseToken, secretKey);
         // #######################################
 
         // System.out.println(flag);
         String nextURL = "signup.jsp";
-
-        if (flag) {
-            String name = request.getParameter("name");
-            String password = request.getParameter("password");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            int stateId = Integer.parseInt(request.getParameter("state"));
-            Integer userTypeId = Integer.parseInt(request.getParameter("user_type_id"));
-            String otp = OTPGenerator.generateOTP();
-            System.out.println("Saving otp at the db for future email verification" + otp);
-            Integer providerTypeId = null;
-            try {
-                providerTypeId = Integer.parseInt(request.getParameter("provider_type_id"));
-                System.out.println(providerTypeId);
-                Provider provider = new Provider(name, email, password, phone, new State(stateId), new UserType(userTypeId), otp);
-                flag=provider.signUpProvider();
-                if(flag){
-                    flag=provider.saveProvider(provider.getUserId(),providerTypeId);
-                    if(flag){
-                        EmailSender.sendAccountVerificationEmail(email, otp);
-                        session.setAttribute("user", provider);
-                        nextURL = "signup_success.jsp";
-                    }
-                }
-            } catch (NumberFormatException e) {
-                User user = new User(name, email, password, phone, new State(stateId), new UserType(userTypeId), otp);
-                flag = user.signUpUser();
+        boolean flag =false;
+        // if (flag) {
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        int stateId = Integer.parseInt(request.getParameter("state"));
+        Integer userTypeId = Integer.parseInt(request.getParameter("user_type_id"));
+        String otp = OTPGenerator.generateOTP();
+        System.out.println("Saving otp at the db for future email verification" + otp);
+        Integer providerTypeId = null;
+        try {
+            providerTypeId = Integer.parseInt(request.getParameter("provider_type_id"));
+            System.out.println(providerTypeId);
+            Provider provider = new Provider(name, email, password, phone, new State(stateId), new UserType(userTypeId),
+                    otp);
+            flag = provider.signUpProvider();
+            if (flag) {
+                flag = provider.saveProvider(provider.getUserId(), providerTypeId);
                 if (flag) {
                     EmailSender.sendAccountVerificationEmail(email, otp);
-                    session.setAttribute("user", user);
+                    session.setAttribute("user", provider);
                     nextURL = "signup_success.jsp";
                 }
-
+            }
+        } catch (NumberFormatException e) {
+            User user = new User(name, email, password, phone, new State(stateId), new UserType(userTypeId), otp);
+            flag = user.signUpUser();
+            if (flag) {
+                EmailSender.sendAccountVerificationEmail(email, otp);
+                session.setAttribute("user", user);
+                nextURL = "signup_success.jsp";
             }
 
         }
+
+        // }
         request.getRequestDispatcher(nextURL).forward(request, response);
     }
 }

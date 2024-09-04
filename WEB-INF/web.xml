@@ -26,10 +26,20 @@
   </listener>
 
   <context-param>
+    <param-name>server</param-name>
+    <param-value>localhost</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>application_name</param-name>
+    <param-value>LEGAL-BREEZE</param-value>
+  </context-param>
+
+  <context-param>
     <param-name>host</param-name>
     <param-value>localhost</param-value>
   </context-param>
-  
+
   <context-param>
     <param-name>port</param-name>
     <param-value>3306</param-value>
@@ -39,7 +49,7 @@
     <param-name>dbName</param-name>
     <param-value>lbdb</param-value>
   </context-param>
-  
+
   <context-param>
     <param-name>unmSql</param-name>
     <param-value>root</param-value>
@@ -47,7 +57,7 @@
 
   <context-param>
     <param-name>pwdSql</param-name>
-    <param-value>1234</param-value>
+    <param-value>aryan1234</param-value>
   </context-param>
 
   <context-param>

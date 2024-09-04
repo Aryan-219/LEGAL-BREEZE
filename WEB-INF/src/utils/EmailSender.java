@@ -8,11 +8,14 @@ import javax.mail.Authenticator;
 import javax.mail.Transport;
 import javax.mail.PasswordAuthentication;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 import javax.mail.MessagingException;
 import javax.mail.Message;
 
 public class EmailSender {
-    
+    public static ServletContext appContext;
+    public static String server;
+    public static String applicationName;
     static Properties props = new Properties();
     static {
         props.put("mail.transport.protocol","smtp");
@@ -40,7 +43,8 @@ public class EmailSender {
         System.out.println("Email has been sent successfully");
     }
     public static boolean sendAccountVerificationEmail(String email, String otp) {
-        String verificationEmail = "<h1>Welcome to LEGAL-BREEZE</h1><p>Click on the following link to verify your account</p> <a href='http://localhost:8080/LEGAL-BREEZE/evf.do?email="
+        String verificationEmail = "<h1>Welcome to LEGAL-BREEZE</h1><p>Click on the following link to verify your account</p>"+
+        "<a href='http://" + server + ":8080/" + applicationName + "/evf.do?email="
                 + email + "&otp=" + otp + "'>Email Verification Link</a>";
                 sendEmail(email, "Account Verification Email", verificationEmail);
         boolean flag = false;
