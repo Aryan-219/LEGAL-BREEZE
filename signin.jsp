@@ -67,7 +67,7 @@
           <div class="input-group">
             <div
               class="g-recaptcha"
-              data-sitekey="6Lc5sSopAAAAAEoDTF_P9Pu1h3vt1IwrONV73YSm"
+              data-sitekey="6LfLMSMqAAAAAPc0Nwgf-aEnM3x1Ttyxfjdp8Qu7"
             ></div>
           </div>
           <input type="submit" value="Signin" class="submit-btn" />

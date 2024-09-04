@@ -289,10 +289,10 @@
         </div>
         <!-- ============================== -->
 
-        <!-- <div
+        <div
           class="g-recaptcha mb-2"
-          data-sitekey="6Lc5sSopAAAAAEoDTF_P9Pu1h3vt1IwrONV73YSm"
-        ></div> -->
+          data-sitekey="6LfLMSMqAAAAAPc0Nwgf-aEnM3x1Ttyxfjdp8Qu7"
+        ></div>
 
         <button
           type="submit"
