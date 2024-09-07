@@ -21,10 +21,11 @@
     <c:import url="/header.jsp" />
 
     <main>
-      <!-- First div -->
+      <!--  Providers cards start -->
       <div
         class="flex flex-col md:flex-row justify-around m-4 p-4 md:space-x-4 space-y-4"
       >
+        <!-- Lawyers start -->
         <div
           class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
@@ -75,6 +76,9 @@
             </div>
           </div>
         </div>
+        <!-- Lawyers end -->
+
+        <!-- Notaries start -->
         <div
           class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
@@ -124,6 +128,9 @@
             </div>
           </div>
         </div>
+        <!-- Notaries end -->
+
+        <!-- Doc Writers start -->
         <div
           class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
@@ -173,14 +180,15 @@
             </div>
           </div>
         </div>
+        <!-- Doc Writers end -->
       </div>
-      <!-- First div -->
+      <!-- Providers cards end ->
 
-      <!-- Second div -->
+      <!-- Bidding -->
       <div
         class="bg-slate-600 rounded-3xl md:mt-16 mt-5 text-center basis-1/2 flex flex-col"
       >
-        <!-- ############################ Modal -s ############################## -->
+        <!-- ############################ Start a bid modal start ############################## -->
         <div>
           <!-- Modal toggle -->
           <button
@@ -318,191 +326,151 @@
             </div>
           </div>
         </div>
-        <!-- ############################ Modal -e ############################## -->
+        <!-- ############################ Start a bid modal end ############################## -->
 
         <!-- ############################ Bidding -s ############################## -->
-        <%-- 
-        <c:forEach var="bid" items="${bids}">
-          <div
-            class="mx-6 mb-3 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-          >
-            <a href="#">
-              <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-              >
-                ${bid.issue}
-              </h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              ${bid.description}
-            </p>
-            <a
-              href="all_applicants.do"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <div
+          class="border-2 w-full p-4 mb-4 bg-white border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+        >
+          <div class="flex mb-4 justify-center">
+            <div
+              class="text-4xl font-bold leading-none text-gray-900 dark:text-white"
             >
-              Show Applicants
-              <svg
-                class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-            </a>
+              All Bids
+            </div>
           </div>
-        </c:forEach> --%>
+          <div class="flow-root">
+            <ul role="list" class="divide-gray-200 dark:divide-gray-700">
+              <c:forEach var="bid" items="${bids}" varStatus="n">
+                <li class="py-3 sm:py-4">
+                  <div
+                    class="flex flex-col h-auto items-center bg-white border border-gray-200 rounded-lg shadow md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 space-y-2 p-5"
+                  >
+                    <div class="flex md:flex-row flex-col leading-normal">
+                      <h5
+                        class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                      >
+                        Deadline : &nbsp;
+                      </h5>
+                      <p
+                        class="text-2xl font-normal text-gray-700 dark:text-gray-400"
+                      >
+                        ${bid.deadline}
+                      </p>
+                    </div>
+                    <div class="flex md:flex-row flex-col leading-normal">
+                      <h5
+                        class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                      >
+                        Issue : &nbsp;
+                      </h5>
+                      <p
+                        class="text-2xl font-normal text-gray-700 dark:text-gray-400"
+                      >
+                        ${bid.issue}
+                      </p>
+                    </div>
+                    <div class="flex md:flex-row flex-col leading-normal">
+                      <h5
+                        class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                      >
+                        Description : &nbsp;
+                      </h5>
+                      <p
+                        class="text-2xl font-normal text-gray-700 dark:text-gray-400"
+                      >
+                        ${bid.description}
+                      </p>
+                    </div>
+                    <div class="flex md:flex-row flex-col leading-normal">
+                      <h5
+                        class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                      >
+                        No. of applicants : &nbsp;
+                      </h5>
+                      <p
+                        class="text-2xl font-normal text-gray-700 dark:text-gray-400"
+                      >
+                        ${bid.noOfApplicants}
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-center">
+                      <c:choose>
+                        <c:when test="${user!=null}">
+                          <a
+                            href="all_applicants.do"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            View Applicants
+                            <svg
+                              class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 14 10"
+                            >
+                              <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9"
+                              />
+                            </svg>
+                          </a>
+                        </c:when>
+                        <c:otherwise>
+                          <div class="cust_tooltip">
+                            <button
+                              data-popover-target="popover-click-${n.count}"
+                              data-popover-trigger="click"
+                              type="button"
+                              class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            >
+                              View Applicants
+                            </button>
 
+                            <div
+                              data-popover
+                              id="popover-click-${n.count}"
+                              role="tooltip"
+                              class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
+                            >
+                              <div
+                                class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700"
+                              >
+                                <h3
+                                  class="font-semibold text-gray-900 dark:text-white"
+                                >
+                                  Not logged in
+                                </h3>
+                              </div>
+                              <div class="px-3 py-2">
+                                <p>You need to login to access this feature</p>
+                              </div>
+                              <div data-popper-arrow></div>
+                            </div>
+                          </div>
+                        </c:otherwise>
+                      </c:choose>
+                    </div>
+                  </div>
+                </li>
+              </c:forEach>
+            </ul>
+          </div>
+        </div>
         <!-- ############################ Bidding -e ############################## -->
       </div>
-      <!-- Second div -->
+      <!-- Bidding -->
+
       <!-- Third div -->
       <!-- <div class="bg-slate-600 rounded-3xl mt-16 p-8 basis-1/4 h-full">
         <h1>Chat Section</h1>
       </div> -->
       <!-- Third div -->
 
-      <!-- Bids -->
-      <div
-        class="border-2 w-full p-4 mb-4 bg-white border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
-      >
-        <div class="flex mb-4 justify-center">
-          <div
-            class="text-4xl font-bold leading-none text-gray-900 dark:text-white"
-          >
-            All Bids
-          </div>
-        </div>
-        <div class="flow-root">
-          <ul role="list" class="divide-gray-200 dark:divide-gray-700">
-            <c:forEach var="bid" items="${allBids}" varStatus="n">
-              <li class="py-3 sm:py-4">
-                <div
-                  class="flex flex-col h-auto items-center bg-white border border-gray-200 rounded-lg shadow md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 space-y-2 p-5"
-                >
-                  <div class="flex md:flex-row flex-col leading-normal">
-                    <h5
-                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                    >
-                      Deadline : &nbsp;
-                    </h5>
-                    <p
-                      class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                    >
-                      ${bid.deadline}
-                    </p>
-                  </div>
-                  <div class="flex md:flex-row flex-col leading-normal">
-                    <h5
-                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                    >
-                      Issue : &nbsp;
-                    </h5>
-                    <p
-                      class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                    >
-                      ${bid.issue}
-                    </p>
-                  </div>
-                  <div class="flex md:flex-row flex-col leading-normal">
-                    <h5
-                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                    >
-                      Description : &nbsp;
-                    </h5>
-                    <p
-                      class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                    >
-                      ${bid.description}
-                    </p>
-                  </div>
-                  <div class="flex md:flex-row flex-col leading-normal">
-                    <h5
-                      class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                    >
-                      No. of applicants : &nbsp;
-                    </h5>
-                    <p
-                      class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                    >
-                      ${bid.noOfApplicants}
-                    </p>
-                  </div>
-                  <div class="flex items-center justify-center">
-                    <c:choose>
-                      <c:when test="${user!=null}">
-                        <a
-                          href="all_applicants.do"
-                          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                          View Applicants
-                          <svg
-                            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 14 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M1 5h12m0 0L9 1m4 4L9 9"
-                            />
-                          </svg>
-                        </a>
-                      </c:when>
-                      <c:otherwise>
-                        <div class="cust_tooltip">
-                          <button
-                            data-popover-target="popover-click-${n.count}"
-                            data-popover-trigger="click"
-                            type="button"
-                            class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                          >
-                            View Applicants
-                          </button>
-
-                          <div
-                            data-popover
-                            id="popover-click-${n.count}"
-                            role="tooltip"
-                            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
-                          >
-                            <div
-                              class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700"
-                            >
-                              <h3
-                                class="font-semibold text-gray-900 dark:text-white"
-                              >
-                                Not logged in
-                              </h3>
-                            </div>
-                            <div class="px-3 py-2">
-                              <p>You need to login to access this feature</p>
-                            </div>
-                            <div data-popper-arrow></div>
-                          </div>
-                        </div>
-                      </c:otherwise>
-                    </c:choose>
-                  </div>
-                </div>
-              </li>
-            </c:forEach>
-          </ul>
-        </div>
-      </div>
-      <!-- Bids -->
-      <!-- Fourth div -->
+      <!-- Fourth div - Cases start -->
       <div
         class="w-full p-4 my-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
@@ -560,7 +528,7 @@
                       </c:forEach>
                     </p>
                   </div>
-                  <div>
+                  <!-- <div>
                     <a href="all_applicants.do">
                       <button
                         type="button"
@@ -569,14 +537,14 @@
                         Show Applicants
                       </button>
                     </a>
-                  </div>
+                  </div> -->
                 </div>
               </li>
             </c:forEach>
           </ul>
         </div>
       </div>
-      <!-- Fourth div -->
+      <!-- Fourth div - Cases end -->
     </main>
 
     <c:import url="/footer.jsp" />

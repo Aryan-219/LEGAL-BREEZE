@@ -26,7 +26,7 @@
       <c:if test="${user.status.statusId==7}">
         <c:forEach var="hhhh" items="${cases}" varStatus="n">
           <c:choose>
-            <c:when test="${hhhh.status.statusId==2}">
+            <c:when test="${hhhh.status.statusId==3}">
               <div
                 id="alert-additional-content-${n.count}"
                 class="p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"

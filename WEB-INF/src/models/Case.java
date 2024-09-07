@@ -62,7 +62,7 @@ public class Case {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
-            String query = "update cases set status_id=? where provider_id=? and case_id=?";
+            String query = "update cases set status_id=? where lawyer_id=? and case_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, status);
             ps.setInt(2, providerId);
@@ -113,8 +113,7 @@ public class Case {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
-            String query = "insert into cases (issue, description, client_id, lawyer_id, start_date, end_date, budget) values (?,?,?,?,?,?,?)";
-            // String query = "insert into cases (issue, description, client_id, lawyer_id, start_date, end_date, court_id,budget) values (?,?,?,?,?,?,?,?)";
+            String query = "insert into cases (issue, description, client_id, lawyer_id, start_date, end_date, court_id,budget) values (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, issue);
             ps.setString(2, description);
@@ -122,8 +121,8 @@ public class Case {
             ps.setInt(4, provider.getUserId());
             ps.setDate(5, startDate);
             ps.setDate(6, endDate);
-            // ps.setInt(7, court.getCourtId());
-            ps.setInt(7, budget);
+            ps.setInt(7, court.getCourtId());
+            ps.setInt(8, budget);
 
             int res = ps.executeUpdate();
             if (res == 1) {

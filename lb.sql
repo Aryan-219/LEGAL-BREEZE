@@ -42,7 +42,10 @@ values
 ('Inactive'),
 ('Open'),
 ('Closed'),
-('Blocked');
+('Blocked'),
+('Deleted'),
+('Engaged'),
+('Rejected');
 
 #################  status-end ##############
 #################  countries-start ##############
@@ -453,21 +456,37 @@ create table bid_applicants (
 );
 
 #################  bid_applicants-end ##############
+
+
+#################  courts-start ##############
+create table courts
+(
+    court_id int auto_increment primary key,
+    name varchar(100) not null
+);
+
+insert into courts (name) values ('District Court'),( 'High Court'),('Supreme Court'), ('Lok Adalat');
+#################  courts-end ##############
+
 #################  cases-start ##############
 create table cases (
     case_id int auto_increment primary key,
     issue char(200) not null,
     description varchar(1000) not null,
+    budget int not null default 0,
     client_id int not null,
     lawyer_id int null,
     start_date date null,
     end_date date null,
     status_id int not null default 3,
+    court_id int not null,
+    constraint fk_cases_courts foreign key (court_id) references courts (court_id),
     constraint fk_cases_clients foreign key (client_id) references users (user_id),
     constraint fk_cases_lawyers foreign key (lawyer_id) references users (user_id)
 );
 
 #################  cases-end ##############
+
 #################  profession-start ##############
 create table profession (
     profession_id int auto_increment primary key,
@@ -548,16 +567,3 @@ create table providers
 );
 #################  providers-end ##############
 
-#################  courts-start ##############
-create table courts
-(
-    court_id int auto_increment primary key,
-    name varchar(100) not null,
-    state_id int not null,
-    constraint fk_courts_states foreign key (state_id) references states (state_id)
-)
-#################  courts-end ##############
-
-alter table cases add column budget int not null default 0;
-
-insert into status (status_id,name) value (7,'engaged');
