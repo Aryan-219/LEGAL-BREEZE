@@ -31,7 +31,9 @@ public class Bid {
     public Bid() {
 
     }
-
+    // public Bid(Integer bidId){
+    //     this.bidId = bidId;
+    // }
     public Bid(String issue, String description, Integer budget, Date startDate, Date deadline) {
         this.issue = issue;
         this.description = description;
@@ -41,6 +43,24 @@ public class Bid {
     }
 
     // ################### Other Methods #########################
+    public static boolean updateNumberOfApplicants(int bidId){
+        boolean flag = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "update bids set no_of_applicants=no_of_applicants+1 where bid_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, bidId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                flag = true;
+                con.close();
+            }
+        }catch(SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
     public static ArrayList<Bid> collectAllBids() {
         ArrayList<Bid> bids = new ArrayList<Bid>();
         try {

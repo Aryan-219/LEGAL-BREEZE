@@ -446,11 +446,13 @@ create table bids (
 );
 
 #################  bids-end ##############
+
 ################# bid_applicants-start ##############
 create table bid_applicants (
     bid_applicant_id int auto_increment primary key,
-    bid_id int not null,
-    applicant_id int not null,
+    bid_id int not null, 
+    applicant_id int not null, 
+    bid_amount int not null,
     constraint fk_bid_applicants_bids foreign key (bid_id) references bids (bid_id),
     constraint fk_bid_applicants_users foreign key (applicant_id) references users (user_id)
 );
@@ -567,3 +569,5 @@ create table providers
 );
 #################  providers-end ##############
 
+
+ select * from bid_applicants as ba inner join bids as b where applicant_id=3 and ba.bid_id = b.bid_id;

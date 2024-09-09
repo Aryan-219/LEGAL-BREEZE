@@ -41,7 +41,7 @@
           <!-- Item 2 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
-              src="static/media/logos/legal-breeze-logo.png"
+              src="static/media/images/carousel_2.jpg"
               class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
               alt="..."
             />
@@ -49,7 +49,7 @@
           <!-- Item 3 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
-              src="static/media/logos/legal-breeze-logo.png"
+              src="static/media/images/carousel_3.jpg"
               class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
               alt="..."
             />
@@ -57,7 +57,7 @@
           <!-- Item 4 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
-              src="static/media/logos/legal-breeze-logo.png"
+              src="static/media/images/carousel_4.jpg"
               class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
               alt="..."
             />
@@ -65,7 +65,7 @@
           <!-- Item 5 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
-              src="static/media/logos/legal-breeze-logo.png"
+              src="static/media/images/carousel_5.webp"
               class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
               alt="..."
             />
