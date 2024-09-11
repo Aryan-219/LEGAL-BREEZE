@@ -136,7 +136,7 @@
         </div>
         <div class="flow-root">
           <ul role="list" class="divide-gray-200 dark:divide-gray-700">
-            <c:forEach var="bid" items="${allBids}">
+            <c:forEach var="bid" items="${allBids}" varStatus="n">
               <li class="m-4">
                 <div class="border rounded-md p-4 flex flex-col justify-center items-center space-y-4">
                   <div class="flex md:flex-row flex-col leading-normal">
@@ -190,8 +190,8 @@
 
                     <!-- Modal toggle -->
                     <button data-modal-target="progress-modal-${bid.bidId}"
-                      data-modal-toggle="progress-modal-${bid.bidId}" id="${bid.bidId}"
-                      class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 bidbtn"
+                      data-modal-toggle="progress-modal-${bid.bidId}" id="bid_now_${bid.bidId}"
+                      class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 bidNowbtn"
                       type="button">
                       Bid Now
                     </button>
@@ -228,17 +228,13 @@
                             <form>
                               <div class="relative mb-10">
                                 <input hidden name="bid_id" value="${bid.bidId}" id="bid_id">
-                                <label for="labels-range-input" class="sr-only">Labels range</label>
-                                <input id="labels-range-input" type="range" min="1000" max="${bid.budget}"
+                                <label for="labels-range-input-${bid.bidId}" class="sr-only">Labels range</label>
+                                <input id="labels-range-input-${bid.bidId}" type="range" min="0" max="${bid.budget}"
                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 slider"
                                   name="bid_amount">
                                 <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min
                                   0</span>
-                                <span
-                                  class="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">${bid.budget/3}</span>
-                                <span
-                                  class="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">${bid.budget/3
-                                  * 2}</span>
+                                
                                 <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max
                                   ${bid.budget}</span>
                               </div>
@@ -272,73 +268,7 @@
 
     <c:import url="/footer.jsp" />
 
-    <script>
-      console.log("welcome to provider dashboard");
-      const buttons = document.querySelectorAll(".bidbtn");
-      const modalFormButton = document.querySelectorAll('.bidNowModalButton');
-      const slider = document.querySelectorAll(".slider");
-
-      let checkHasApplied = async (bidId) => {
-        let response = await fetch("check_has_applied.do?bid_id=" + bidId);
-        let result = await response.text();
-        return result;
-      }
-      let saveBidApplication = async (bidAmount, bidId) => {
-        // console.log(bidAmount);
-        // console.log(bidId);
-        let response = await fetch("save_bid_application.do?bid_id=" + bidId + "&bid_amount=" + bidAmount);
-        let result = await response.text();
-        return result;
-      };
-
-      buttons.forEach(button => {
-        // console.log(button);
-        button.addEventListener("click", (e) => {
-          //  console.log(e.target.id);
-          let buttonId = e.target.id;
-          const modal = document.querySelector("#progress-modal-" + buttonId);
-          //  console.log(modal);
-          checkHasApplied(buttonId).then((data) => {
-
-            console.log("value of has applied: " + data);
-            if (data == 'true') {
-              alert("you have already applied to this bid");
-              //e.target.innerText="You have already applied";
-              //e.target.disabled = true;
-              console.log("the user has already applied to this bid. Make him edit the bidding amount which is currently: " + data);
-            // window.location.reload();
-             window.location.href='provider_dashboard.do';
-            } else {
-              // alert("set the bid amount");  
-              // open modal 
-            }
-          });
-        });
-      });
-
-      // console.log(slider);
-      // console.log(modalFormButton); 
-      for (var elm of modalFormButton) {
-        elm.addEventListener('click', (e) => {
-          e.preventDefault();
-          console.log("Hihihihihihihihhihih");
-          let sliderValue = slider[e.target.id - 1].value;
-          let bidId = e.target.id;
-
-
-          saveBidApplication(sliderValue, bidId).then((data) => {
-            if (data == 'true') {
-              alert("bidding amount set successfully");
-            } else {
-              alert("Bidding amount not set");
-            }
-          })
-
-
-        });
-      }
-
-    </script>
+    <script src = "static/js/provider_dashboard.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
   </body>
 
