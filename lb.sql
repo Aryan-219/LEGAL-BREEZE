@@ -568,6 +568,3 @@ create table providers
     constraint fk_p_providers_types foreign key (provider_type_id) references provider_types (provider_type_id)
 );
 #################  providers-end ##############
-
-
- select * from bid_applicants as ba inner join bids as b where applicant_id=3 and ba.bid_id = b.bid_id;
