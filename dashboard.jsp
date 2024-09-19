@@ -336,12 +336,12 @@
             <div
               class="text-4xl font-bold leading-none text-gray-900 dark:text-white"
             >
-              All Bids
+              Your Bids(Open)
             </div>
           </div>
           <div class="flow-root">
             <ul role="list" class="divide-gray-200 dark:divide-gray-700">
-              <c:forEach var="bid" items="${bids}" varStatus="n">
+              <c:forEach var="bid" items="${openBids}" varStatus="n">
                 <li class="py-3 sm:py-4">
                   <div
                     class="flex flex-col h-auto items-center bg-white border border-gray-200 rounded-lg shadow md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 space-y-2 p-5"

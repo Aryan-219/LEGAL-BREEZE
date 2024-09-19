@@ -419,10 +419,9 @@
           </div>
         </div>
       </div>
-
       <!-- Cards -->
 
-      <!-- Bids -->
+      <!--All Bids -->
       <div
         class="border-2 w-full p-4 mb-4 bg-white border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
@@ -491,27 +490,37 @@
                   <div class="flex items-center justify-center">
                     <c:choose>
                       <c:when test="${user!=null}">
-                        <a
-                          href="all_applicants.do"
-                          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                          View Applicants
-                          <svg
-                            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 14 10"
+                        <div class="cust_tooltip">
+                          <button
+                            data-popover-target="loggedIn-popover-${n.count}-"
+                            data-popover-trigger="click"
+                            type="button"
+                            class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                           >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M1 5h12m0 0L9 1m4 4L9 9"
-                            />
-                          </svg>
-                        </a>
+                            View Applicants
+                          </button>
+
+                          <div
+                            data-popover
+                            id="loggedIn-popover-${n.count}-"
+                            role="tooltip"
+                            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
+                          >
+                            <div
+                              class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700"
+                            >
+                              <h3
+                                class="font-semibold text-gray-900 dark:text-white"
+                              >
+                                <a href="dashboard.do"> Go to DashBoard </a>
+                              </h3>
+                            </div>
+                            <div class="px-3 py-2">
+                              <p>Open <a href="dashboard.do"> Dashboard</a> to view applicants to your bid</p>
+                            </div>
+                            <div data-popper-arrow></div>
+                          </div>
+                        </div>
                       </c:when>
                       <c:otherwise>
                         <div class="cust_tooltip">
@@ -554,7 +563,7 @@
           </ul>
         </div>
       </div>
-      <!-- Bids -->
+      <!--All Bids -->
     </main>
 
     <c:import url="/footer.jsp" />

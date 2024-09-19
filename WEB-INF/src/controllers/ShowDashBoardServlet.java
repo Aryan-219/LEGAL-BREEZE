@@ -23,8 +23,8 @@ public class ShowDashBoardServlet extends HttpServlet {
 
         String nextURL = "dashboard.jsp";
 
-        ArrayList<Bid> bids = Bid.collectUserBids(user.getUserId());
-        session.setAttribute("bids", bids);
+        ArrayList<Bid> openBids = Bid.collectAllBids(user.getUserId(),3);
+        session.setAttribute("openBids", openBids);
 
         ArrayList<Case> cases = Case.collectAllCases(user.getUserId());
         session.setAttribute("cases", cases);

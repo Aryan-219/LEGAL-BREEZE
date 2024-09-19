@@ -18,15 +18,16 @@ public class HiredBidApplicant {
     Status status;
 
     // Other Methods...
-    public static boolean saveHiredBidApplicant(int applicantId, int bidId) {
+    public static boolean saveHiredBidApplicant(int applicantId, int bidId, int seekerId) {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
-            String query = "insert into hired_bid_applicants (bid_id, applicant_id) values (?,?)";
+            String query = "insert into hired_bid_applicants (bid_id, provider_id,seeker_id) values (?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, bidId);
             ps.setInt(2, applicantId);
+            ps.setInt(3,seekerId);
             int res = ps.executeUpdate();
             if (res == 1) {
                 flag = true;

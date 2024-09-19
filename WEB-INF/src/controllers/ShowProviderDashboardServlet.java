@@ -19,8 +19,13 @@ public class ShowProviderDashboardServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        ArrayList<Bid> allBids = Bid.collectAllBids();
-        session.setAttribute("allBids", allBids);
+        ArrayList<Bid> openBids = Bid.collectAllBids(3);
+        session.setAttribute("allBids", openBids);
+        
+
+        ArrayList<Bid> appliedBids = Bid.collecAllBids(3);
+        session.setAttribute("allBids", openBids);
+        
         ArrayList<Case> cases = Case.collectAllCases(user.getUserId());
         session.setAttribute("cases", cases);
         request.getRequestDispatcher("provider_dashboard.jsp").forward(request, response);

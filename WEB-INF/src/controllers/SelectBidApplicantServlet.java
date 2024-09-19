@@ -22,18 +22,15 @@ public class SelectBidApplicantServlet extends HttpServlet {
         int applicantId = Integer.parseInt(request.getParameter("applicant_id"));
         int bidId = Integer.parseInt(request.getParameter("bid_id"));
 
-        boolean flag = HiredBidApplicant.saveHiredBidApplicant(applicantId, bidId);
+        boolean flag = HiredBidApplicant.saveHiredBidApplicant(applicantId, bidId, user.getUserId());
         if(flag){
-            nextURL = "provider_hired.jsp";
             // update bid status
-            // flag = models.Bid.updateBidStatus(2, user.getUserId(), bidId);
-            // if(flag){
-            //     session.setAttribute("flag", flag);
-            //     request.getRequestDispatcher("provider_dashboard.do").forward(request, response);
-            // } else{
-            //     request.getRequestDispatcher("provider_dashboard.do").forward(request, response);
-            //     session.setAttribute("flag", flag);
-            // }
+            flag = models.Bid.updateBidStatus(7,bidId);
+            if(flag){
+                nextURL = "provider_hired.jsp";
+                // session.setAttribute("flag", flag);
+                // request.getRequestDispatcher("provider_dashboard.do").forward(request, response);
+            } 
         }
         request.getRequestDispatcher(nextURL).forward(request, response);
     }

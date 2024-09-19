@@ -31,8 +31,9 @@ public class Bid {
     public Bid() {
 
     }
+
     // public Bid(Integer bidId){
-    //     this.bidId = bidId;
+    // this.bidId = bidId;
     // }
     public Bid(String issue, String description, Integer budget, Date startDate, Date deadline) {
         this.issue = issue;
@@ -43,7 +44,26 @@ public class Bid {
     }
 
     // ################### Other Methods #########################
-    public static boolean updateNumberOfApplicants(int bidId){
+    public static boolean updateBidStatus(int statusId, int bidId) {
+        boolean flag = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "update bids set status_id=7 where bid_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, bidId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected == 1) {
+                flag = true;
+                con.close();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public static boolean updateNumberOfApplicants(int bidId) {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -56,13 +76,79 @@ public class Bid {
                 flag = true;
                 con.close();
             }
-        }catch(SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return flag;
     }
-    public static ArrayList<Bid> collectAllBids() {
+
+    public static ArrayList<Bid> collectAllBids(int statusId) {
         ArrayList<Bid> bids = new ArrayList<Bid>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "select * from bids where status_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, statusId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bid bid = new Bid();
+                bid.setBidId(rs.getInt("bid_id"));
+                bid.setIssue(rs.getString("issue"));
+                bid.setDescription(rs.getString("description"));
+                bid.setHearings(rs.getInt("hearings"));
+                bid.setStatus(new Status(rs.getInt("status_id")));
+                bid.setBudget(rs.getInt("budget"));
+                bid.setStartDate(rs.getDate("start_date"));
+                bid.setDeadline(rs.getDate("deadline"));
+                bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
+                bid.setUser(new User(rs.getInt("user_id")));
+                bids.add(bid);
+
+            }
+            con.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return bids;
+    }
+
+    public static ArrayList<Bid> collectAllBids(Integer userId, int statusId) {
+        ArrayList<Bid> bids = new ArrayList<Bid>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "select * from bids where user_id=? and status_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, userId);
+            ps.setInt(2, statusId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bid bid = new Bid();
+                bid.setBidId(rs.getInt("bid_id"));
+                bid.setIssue(rs.getString("issue"));
+                bid.setDescription(rs.getString("description"));
+                bid.setHearings(rs.getInt("hearings"));
+                bid.setStatus(new Status(rs.getInt("status_id")));
+                bid.setBudget(rs.getInt("budget"));
+                bid.setStartDate(rs.getDate("start_date"));
+                bid.setDeadline(rs.getDate("deadline"));
+                bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
+                bid.setUser(new User(rs.getInt("user_id")));
+                bids.add(bid);
+
+            }
+            con.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return bids;
+    }
+
+    public static ArrayList<Bid> collectAllBids() {
+        ArrayList<Bid> allBids = new ArrayList<Bid>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
@@ -81,7 +167,7 @@ public class Bid {
                 bid.setDeadline(rs.getDate("deadline"));
                 bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
                 bid.setUser(new User(rs.getInt("user_id")));
-                bids.add(bid);
+                allBids.add(bid);
 
             }
             con.close();
@@ -89,39 +175,7 @@ public class Bid {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return bids;
-    }
-
-    public static ArrayList<Bid> collectUserBids(Integer userId) {
-        ArrayList<Bid> bids = new ArrayList<Bid>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(conURL);
-            String query = "select * from bids where user_id=?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Bid bid = new Bid();
-                bid.setBidId(rs.getInt("bid_id"));
-                bid.setIssue(rs.getString("issue"));
-                bid.setDescription(rs.getString("description"));
-                bid.setHearings(rs.getInt("hearings"));
-                bid.setStatus(new Status(rs.getInt("status_id")));
-                bid.setBudget(rs.getInt("budget"));
-                bid.setStartDate(rs.getDate("start_date"));
-                bid.setDeadline(rs.getDate("deadline"));
-                bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
-                bid.setUser(new User(rs.getInt("user_id")));
-                bids.add(bid);
-
-            }
-            con.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return bids;
+        return allBids;
     }
 
     public boolean saveBidDetails(Integer userId) {

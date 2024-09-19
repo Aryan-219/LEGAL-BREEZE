@@ -78,7 +78,6 @@ public class BidApplicant {
             }
             con.close();
         } catch (ClassNotFoundException | SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return flag;

@@ -575,9 +575,11 @@ create table hired_bid_applicants
     hired_bid_applicant_id int auto_increment primary key,
     bid_id int not null,
     provider_id int not null,
+    seeker_id int not null,
     status_id int not null default 7,
     constraint fk_hba_bids foreign key (bid_id) references bids (bid_id),
     constraint fk_hba_providers foreign key (provider_id) references providers (user_id),
-    constraint fk_hba_status foreign key (status_id) references status (status_id)
+    constraint fk_hba_status foreign key (status_id) references status (status_id),
+    constraint fk_hba_seekers foreign key (seeker_id) references users (user_id)
 );
 #################  hired_bid_applicants-end ##############
