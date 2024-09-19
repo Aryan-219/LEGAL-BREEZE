@@ -24,8 +24,11 @@ public class SelectBidApplicantServlet extends HttpServlet {
 
         boolean flag = HiredBidApplicant.saveHiredBidApplicant(applicantId, bidId, user.getUserId());
         if(flag){
-            // update bid status
+            // update bid status to engaged
             flag = models.Bid.updateBidStatus(7,bidId);
+
+            // Removing bid_applicant records ...
+            flag = models.BidApplicant.deleteBidApplicant(bidId);
             if(flag){
                 nextURL = "provider_hired.jsp";
                 // session.setAttribute("flag", flag);

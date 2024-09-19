@@ -17,10 +17,31 @@ public class BidApplicant {
     private Integer bidAmount;
 
     // public BidApplicant(Integer bidApplicantId, Integer bidAmount, Bid bid){
-    //     this.bidApplicantId = bidApplicantId;
-    //     this.bidAmount = bidAmount;
-    //     this.bid = bid;
+    // this.bidApplicantId = bidApplicantId;
+    // this.bidAmount = bidAmount;
+    // this.bid = bid;
     // }
+
+    public static boolean deleteBidApplicant(int bidId) {
+        boolean flag = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "delete from bid_applicants where bid_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, bidId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                flag = true;
+            }
+            con.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+
+    }
 
     public static ArrayList<BidApplicant> getAllApplicantsForABid(Integer bidId) {
         ArrayList<BidApplicant> applicants = new ArrayList<>();
@@ -31,10 +52,11 @@ public class BidApplicant {
 
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, bidId);
-            
+
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                BidApplicant ba = new BidApplicant(rs.getInt(1), new User(rs.getInt(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8)), rs.getInt(3));
+            while (rs.next()) {
+                BidApplicant ba = new BidApplicant(rs.getInt(1), new User(rs.getInt(2), rs.getString(4),
+                        rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8)), rs.getInt(3));
                 applicants.add(ba);
             }
             con.close();
@@ -43,7 +65,8 @@ public class BidApplicant {
         }
         return applicants;
     }
-    public static boolean checkHasApplied(Integer applicantId, Integer bidId){
+
+    public static boolean checkHasApplied(Integer applicantId, Integer bidId) {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -53,7 +76,7 @@ public class BidApplicant {
             ps.setInt(1, bidId);
             ps.setInt(2, applicantId);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 flag = true;
             }
             con.close();
@@ -62,7 +85,8 @@ public class BidApplicant {
         }
         return flag;
     }
-    public static boolean saveBidApplication(Integer applicantId, Integer bidId,Integer bidAmount) {
+
+    public static boolean saveBidApplication(Integer applicantId, Integer bidId, Integer bidAmount) {
         boolean flag = false;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -70,10 +94,10 @@ public class BidApplicant {
             String query = "insert into bid_applicants (bid_id, applicant_id, bid_amount) values (?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, bidId);
-            ps.setInt(2,applicantId);
-            ps.setInt(3,bidAmount);
+            ps.setInt(2, applicantId);
+            ps.setInt(3, bidAmount);
             int res = ps.executeUpdate();
-            if(res==1){
+            if (res == 1) {
                 flag = true;
             }
             con.close();
@@ -90,7 +114,6 @@ public class BidApplicant {
     public void setBidAmount(Integer bidAmount) {
         this.bidAmount = bidAmount;
     }
-
 
     public static ServletContext appContext;
     public static String conURL;

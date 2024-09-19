@@ -43,6 +43,38 @@ public class Bid {
         this.deadline = deadline;
     }
 
+    // ################### Other Methods #########################
+    public static ArrayList<Bid> collectAllApprovedBids(int providerId) {
+        ArrayList<Bid> bids = new ArrayList<Bid>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "select * from bids as b inner join hired_bid_applicants as hba where provider_id=? and b.bid_id=hba.bid_id";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, providerId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bid bid = new Bid();
+                bid.setBidId(rs.getInt("bid_id"));
+                bid.setIssue(rs.getString("issue"));
+                bid.setDescription(rs.getString("description"));
+                bid.setHearings(rs.getInt("hearings"));
+                bid.setStatus(new Status(rs.getInt("status_id")));
+                bid.setBudget(rs.getInt("budget"));
+                bid.setStartDate(rs.getDate("start_date"));
+                bid.setDeadline(rs.getDate("deadline"));
+                bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
+                bid.setUser(new User(rs.getInt("user_id")));
+                bids.add(bid);
+            }
+
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bids;
+    }
+
     public static ArrayList<Bid> getAppliedBidsByAUser(Integer applicantId) {
         ArrayList<Bid> appBidList = new ArrayList<Bid>();
         try {
@@ -74,7 +106,6 @@ public class Bid {
         return appBidList;
     }
 
-    // ################### Other Methods #########################
     public static boolean updateBidStatus(int statusId, int bidId) {
         boolean flag = false;
         try {

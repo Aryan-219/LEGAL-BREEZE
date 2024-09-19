@@ -26,6 +26,11 @@ public class ShowDashBoardServlet extends HttpServlet {
         ArrayList<Bid> openBids = Bid.collectAllBids(user.getUserId(),3);
         session.setAttribute("openBids", openBids);
 
+        ArrayList<Bid> pendingBids = Bid.collectAllBids(user.getUserId(),7);
+        session.setAttribute("pendingBids", pendingBids);
+
+        
+
         ArrayList<Case> cases = Case.collectAllCases(user.getUserId());
         session.setAttribute("cases", cases);
 

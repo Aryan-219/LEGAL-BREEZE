@@ -25,7 +25,9 @@
       <c:choose>
         <c:when test="${applicants.isEmpty()}">
           <!-- <h1>No applicants found.</h1> -->
-          <h1 class="text-center text-gray-400 text-5xl m-4 p-4">Sorry but, you don't have any applicants yet ... </h1>
+          <h1 class="text-center text-gray-400 text-5xl m-4 p-4">
+            Sorry but, you don't have any applicants yet ...
+          </h1>
         </c:when>
         <c:otherwise>
           <c:forEach var="applicant" items="${applicants}" varStatus="n">
