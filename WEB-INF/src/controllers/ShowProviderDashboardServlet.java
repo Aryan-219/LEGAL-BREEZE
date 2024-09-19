@@ -23,8 +23,8 @@ public class ShowProviderDashboardServlet extends HttpServlet {
         session.setAttribute("allBids", openBids);
         
 
-        ArrayList<Bid> appliedBids = Bid.collecAllBids(3);
-        session.setAttribute("allBids", openBids);
+        ArrayList<Bid> appliedBids = Bid.getAppliedBidsByAUser(user.getUserId());
+        session.setAttribute("appliedBids", appliedBids);
         
         ArrayList<Case> cases = Case.collectAllCases(user.getUserId());
         session.setAttribute("cases", cases);

@@ -43,6 +43,37 @@ public class Bid {
         this.deadline = deadline;
     }
 
+    public static ArrayList<Bid> getAppliedBidsByAUser(Integer applicantId) {
+        ArrayList<Bid> appBidList = new ArrayList<Bid>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "select * from bids as b inner join bid_applicants as ba where b.bid_id = ba.bid_id and ba.applicant_id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, applicantId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bid bid = new Bid();
+                bid.setBidId(rs.getInt("bid_id"));
+                bid.setIssue(rs.getString("issue"));
+                bid.setDescription(rs.getString("description"));
+                bid.setHearings(rs.getInt("hearings"));
+                bid.setStatus(new Status(rs.getInt("status_id")));
+                bid.setBudget(rs.getInt("budget"));
+                bid.setStartDate(rs.getDate("start_date"));
+                bid.setDeadline(rs.getDate("deadline"));
+                bid.setNoOfApplicants(rs.getInt("no_of_applicants"));
+                bid.setUser(new User(rs.getInt("user_id")));
+
+                appBidList.add(bid);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return appBidList;
+    }
+
     // ################### Other Methods #########################
     public static boolean updateBidStatus(int statusId, int bidId) {
         boolean flag = false;
