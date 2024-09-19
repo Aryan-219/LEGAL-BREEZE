@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="a" uri="lbdb" %>
 
   <!DOCTYPE html>
   <html lang="en">
@@ -131,12 +132,12 @@
         class="w-full p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex mb-4 justify-center">
           <h5 class="text-4xl font-bold leading-none text-gray-900 dark:text-white">
-            Open Bids
+            Open Bids S
           </h5>
         </div>
         <div class="flow-root">
           <ul role="list" class="divide-gray-200 dark:divide-gray-700">
-            <c:forEach var="bid" items="${allBids}" varStatus="n">
+            <c:forEach var="bid" items="${a:compare(allBids, appliedBids)}" varStatus="n">
               <li class="m-4">
                 <div class="border rounded-md p-4 flex flex-col justify-center items-center space-y-4">
                   <div class="flex md:flex-row flex-col leading-normal">
@@ -234,7 +235,7 @@
                                   name="bid_amount">
                                 <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min
                                   0</span>
-                                
+
                                 <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max
                                   ${bid.budget}</span>
                               </div>
@@ -263,8 +264,144 @@
           </ul>
         </div>
       </div>
-      <!-- open bids -e -->
+      <!-- applied bids -e -->
 
+      <div
+        class="w-full p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex mb-4 justify-center">
+          <h5 class="text-4xl font-bold leading-none text-gray-900 dark:text-white">
+            Applied Bids
+          </h5>
+        </div>
+        <div class="flow-root">
+          <ul role="list" class="divide-gray-200 dark:divide-gray-700">
+            <c:forEach var="appliedBid" items="${appliedBids}" varStatus="n">
+              <li class="m-4">
+                <div class="border rounded-md p-4 flex flex-col justify-center items-center space-y-4">
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      Bid Id :
+                    </h5>
+                    <p class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400">
+                      ${appliedBid.bidId}
+                    </p>
+                  </div>
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      User Id :
+                    </h5>
+                    <p class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400">
+                      ${appliedBid.user.userId}
+                    </p>
+                  </div>
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      Issue :
+                    </h5>
+                    <p class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400">
+                      ${appliedBid.issue}
+                    </p>
+                  </div>
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      Description :
+                    </h5>
+                    <p class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400">
+                      ${appliedBid.description}
+                    </p>
+                  </div>
+                  <div class="flex md:flex-row flex-col leading-normal">
+                    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      Budget :
+                    </h5>
+                    <p class="ps-4 text-2xl font-normal text-gray-700 dark:text-gray-400">
+                      ${appliedBid.budget}
+                    </p>
+                  </div>
+                  <div>
+                    <a href="all_applicants.do">
+                      <button type="button"
+                        class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        Show Applicants
+                      </button>
+                    </a>
+
+
+                    <!-- Modal toggle -->
+                    <button data-modal-target="progress-modal-${bid.bidId}"
+                      data-modal-toggle="progress-modal-${bid.bidId}" id="bid_now_${bid.bidId}"
+                      class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 bidNowbtn"
+                      type="button">
+                      Bid Now
+                    </button>
+
+                    <!-- Main modal -->
+                    <div id="progress-modal-${bid.bidId}" tabindex="-1" aria-hidden="true"
+                      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                      <div class="relative p-4 w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                          <button type="button"
+                            class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="progress-modal-${bid.bidId}">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 14 14">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                          </button>
+                          <div class="p-4 md:p-5">
+                            <svg class="w-10 h-10 text-gray-400 dark:text-gray-500 mb-4" aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                              <path
+                                d="M8 5.625c4.418 0 8-1.063 8-2.375S12.418.875 8 .875 0 1.938 0 3.25s3.582 2.375 8 2.375Zm0 13.5c4.963 0 8-1.538 8-2.375v-4.019c-.052.029-.112.054-.165.082a8.08 8.08 0 0 1-.745.353c-.193.081-.394.158-.6.231l-.189.067c-2.04.628-4.165.936-6.3.911a20.601 20.601 0 0 1-6.3-.911l-.189-.067a10.719 10.719 0 0 1-.852-.34 8.08 8.08 0 0 1-.493-.244c-.053-.028-.113-.053-.165-.082v4.019C0 17.587 3.037 19.125 8 19.125Zm7.09-12.709c-.193.081-.394.158-.6.231l-.189.067a20.6 20.6 0 0 1-6.3.911 20.6 20.6 0 0 1-6.3-.911l-.189-.067a10.719 10.719 0 0 1-.852-.34 8.08 8.08 0 0 1-.493-.244C.112 6.035.052 6.01 0 5.981V10c0 .837 3.037 2.375 8 2.375s8-1.538 8-2.375V5.981c-.052.029-.112.054-.165.082a8.08 8.08 0 0 1-.745.353Z" />
+                            </svg>
+                            <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Choose your bidding amount
+                            </h3>
+                            <p class="text-gray-500 dark:text-gray-400 mb-6">Choosing the lowest amount possible will
+                              increase chances of bid acceptance.
+                            <p>
+
+                            <form>
+                              <div class="relative mb-10">
+                                <input hidden name="bid_id" value="${bid.bidId}" id="bid_id">
+                                <label for="labels-range-input-${bid.bidId}" class="sr-only">Labels range</label>
+                                <input id="labels-range-input-${bid.bidId}" type="range" min="0" max="${bid.budget}"
+                                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 slider"
+                                  name="bid_amount">
+                                <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min
+                                  0</span>
+
+                                <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max
+                                  ${appliedBid.budget}</span>
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="flex items-center mt-6 space-x-4 rtl:space-x-reverse">
+                                <button data-modal-hide="progress-modal-${bid.bidId}" type="button" id="${bid.bidId}"
+                                  class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 bidNowModalButton">Submit
+                                  bid</button>
+
+
+                                <button data-modal-hide="progress-modal-${bid.bidId}" type="button"
+                                  class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancel</button>
+
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </c:forEach>
+          </ul>
+        </div>
+      </div>
 
       <!-- applied bids -s -->
       <%-- <div
@@ -374,7 +511,7 @@
                                   name="bid_amount">
                                 <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min
                                   0</span>
-                                
+
                                 <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max
                                   ${bid.budget}</span>
                               </div>
@@ -402,13 +539,13 @@
             </c:forEach>
           </ul>
         </div>
-      </div> --%>
-      <!-- applied bids -e -->
+        </div> --%>
+        <!-- applied bids -e -->
     </main>
 
     <c:import url="/footer.jsp" />
 
-    <script src = "static/js/provider_dashboard.js" ></script>
+    <script src="static/js/provider_dashboard.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
   </body>
 
