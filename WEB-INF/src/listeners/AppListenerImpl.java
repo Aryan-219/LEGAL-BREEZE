@@ -35,7 +35,7 @@ public class AppListenerImpl implements ServletContextListener {
         System.out.println("---------------------------- Starting LEGAL-BREEZE --------------------------------");
 
         ServletContext context = e.getServletContext();
-        String[] models = { "Badge", "Bid", "BidApplicant", "Case", "Category", "Country", "Court", "Gender",
+        String[] models = { "Badge", "Bid", "BidApplicant", "Case", "Category", "Country", "Court", "Gender","HiredBidApplicant",
                 "Profession", "Provider", "ProviderType", "Qualification", "State",
                 "Status", "User", "UserQualification", "UserType" };
 

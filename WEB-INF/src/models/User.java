@@ -47,6 +47,16 @@ public class User {
         this.userId = userId;
     }
 
+    // User(userId, name, email, phone, casesFought, casesWon)
+    public User(Integer userId, String name, String email, String phone, Integer casesFought, Integer casesWon) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.casesFought = casesFought;
+        this.casesWon = casesWon;
+    }
+
     public User(String name, String email, String password, String phone, State state, UserType userType, String otp) {
         this.name = name;
         this.email = email;

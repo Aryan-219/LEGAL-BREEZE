@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 
@@ -20,6 +21,28 @@ public class BidApplicant {
     //     this.bidAmount = bidAmount;
     //     this.bid = bid;
     // }
+
+    public static ArrayList<BidApplicant> getAllApplicantsForABid(Integer bidId) {
+        ArrayList<BidApplicant> applicants = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "select ba.bid_applicant_id, ba.applicant_id, ba.bid_amount, u.name, u.email, u.phone, u.cases_fought, u.cases_won from bid_applicants as ba inner join users as u where ba.applicant_id=u.user_id and bid_id=?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, bidId);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                BidApplicant ba = new BidApplicant(rs.getInt(1), new User(rs.getInt(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8)), rs.getInt(3));
+                applicants.add(ba);
+            }
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return applicants;
+    }
     public static boolean checkHasApplied(Integer applicantId, Integer bidId){
         boolean flag = false;
         try {
@@ -69,12 +92,19 @@ public class BidApplicant {
         this.bidAmount = bidAmount;
     }
 
+
     public static ServletContext appContext;
     public static String conURL;
 
     // ################### Constructors #########################
     public BidApplicant() {
 
+    }
+
+    public BidApplicant(Integer bidApplicantId, User user, Integer bidAmount) {
+        this.bidApplicantId = bidApplicantId;
+        this.user = user;
+        this.bidAmount = bidAmount;
     }
     // ################### Getters-Setters #########################
 

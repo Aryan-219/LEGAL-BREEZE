@@ -568,3 +568,16 @@ create table providers
     constraint fk_p_providers_types foreign key (provider_type_id) references provider_types (provider_type_id)
 );
 #################  providers-end ##############
+
+#################  hired_bid_applicants-start ##############
+create table hired_bid_applicants 
+(
+    hired_bid_applicant_id int auto_increment primary key,
+    bid_id int not null,
+    provider_id int not null,
+    status_id int not null default 7,
+    constraint fk_hba_bids foreign key (bid_id) references bids (bid_id),
+    constraint fk_hba_providers foreign key (provider_id) references providers (user_id),
+    constraint fk_hba_status foreign key (status_id) references status (status_id)
+);
+#################  hired_bid_applicants-end ##############

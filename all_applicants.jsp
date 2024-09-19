@@ -22,72 +22,58 @@
     <c:import url="/header.jsp" />
 
     <main>
-      <div
-        class="w-full p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
-      >
-        <div class="flex mb-4 justify-center">
-          <h5
-            class="text-4xl font-bold leading-none text-gray-900 dark:text-white"
-          >
-            All Applicants
-          </h5>
-        </div>
-        <div class="flow-root border-2 p-4 space-y-4">
+      <c:forEach var="applicant" items="${applicants}" varStatus="n">
+        <div class="py-3 sm:py-4">
           <div
-            class="flex flex-col md:flex-row items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+            class="flex flex-col h-auto items-center bg-white border border-gray-200 rounded-lg shadow md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 space-y-2 p-5"
           >
-            <div class="border-2">
-              <img
-                class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-                src="static/media/images/download.jpg"
-                alt=""
-              />
+            <div class="flex md:flex-row flex-col leading-normal">
+              <h5
+                class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Name : &nbsp;
+              </h5>
+              <p class="text-2xl font-normal text-gray-700 dark:text-gray-400">
+                ${applicant.user.name}
+              </p>
+            </div>
+            <div class="flex md:flex-row flex-col leading-normal">
+              <h5
+                class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                Bidding amount : &nbsp;
+              </h5>
+              <p class="text-2xl font-normal text-gray-700 dark:text-gray-400">
+                ${applicant.bidAmount}
+              </p>
             </div>
 
-            <div
-              class="flex flex-col w-full border-2 justify-between leading-normal space-x-2"
-            >
-              <div class="flex flex-row">
-                <h5
-                  class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            <div class="flex items-center justify-center">
+              <a
+                href="select_bid_applicant.do?applicant_id=${applicant.user.userId}&bid_id=${bid_id}"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Hire
+                <svg
+                  class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
                 >
-                  Name : &nbsp;
-                </h5>
-                <p
-                  class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                >
-                  Aryan Agrawal
-                </p>
-              </div>
-              <div class="flex flex-row">
-                <h5
-                  class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                >
-                  Name : &nbsp;
-                </h5>
-                <p
-                  class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                >
-                  Aryan Agrawal
-                </p>
-              </div>
-              <div class="flex flex-row">
-                <h5
-                  class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                >
-                  Name : &nbsp;
-                </h5>
-                <p
-                  class="text-2xl font-normal text-gray-700 dark:text-gray-400"
-                >
-                  Aryan Agrawal
-                </p>
-              </div>
-              
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
-      </div>
+      </c:forEach>
     </main>
 
     <c:import url="/footer.jsp" />
