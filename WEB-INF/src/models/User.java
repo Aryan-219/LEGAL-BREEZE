@@ -34,6 +34,33 @@ public class User {
     private Status status;
     private String uid;
     private String otp;
+    private String twitter;
+    private String linkedin;
+    private String github;
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
+
+    public String getGithub() {
+        return github;
+    }
+
+    public void setGithub(String github) {
+        this.github = github;
+    }
 
     public static ServletContext appContext;
     public static String conURL;
@@ -72,6 +99,24 @@ public class User {
         this.email = email;
     }
 
+    public static void updateLinkDetails(int userId, String twitter, String linkedin, String github){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "update users set twitter=?, linkedin=?, github=? where user_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, twitter);
+            ps.setString(2, linkedin);
+            ps.setString(3, github);
+            ps.setInt(4, userId);
+            int res = ps.executeUpdate();
+            System.out.println("Link update result : " + res);
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ;
+    }
     public boolean updateUserStatus(Integer userId, Integer statusId) {
         boolean flag = false;
         try {
@@ -216,7 +261,9 @@ public class User {
                     userType = new UserType(rs.getInt(10));
                     joinedOn = rs.getTimestamp(15);
                     status = new Status(rs.getInt(19));
-
+                    twitter = rs.getString("twitter");
+                    linkedin = rs.getString("linkedin");
+                    github = rs.getString("github");
                     flag = 1;
                 } else {
                     flag = 2;

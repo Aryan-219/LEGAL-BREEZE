@@ -666,3 +666,7 @@ VALUES
 
 
 -- dummy data end
+
+alter table users add column twitter varchar(50) null default 'http://twitter.com';
+alter table users add column linkedin varchar(50) null default 'http://linkedin.com';
+alter table users add column github varchar(50) null default 'http://github.com';
