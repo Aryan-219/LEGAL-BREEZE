@@ -1,0 +1,34 @@
+Enum Tables : 
+1.  badges
+2. user_types
+3. status
+4. countries
+5. states
+6. courts
+7. profession
+8. provider_types
+
+Non-enum tables :
+9.  users 
+10. providers
+11. bids
+12. bid_applicants
+13. cases
+14. hired_bid_applicants 
+
+Empty tables :
+15. genders 
+16. categories 
+17. qualifications
+18. user_qualifications
+
+
+
+
+
+
+
+ 
+ 
+
+ 
