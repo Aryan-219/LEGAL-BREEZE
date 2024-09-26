@@ -103,6 +103,32 @@ public class User {
         this.email = email;
     }
 
+    public boolean saveProfilePic() {
+        boolean flag = false;
+
+        try {
+            Connection con = DriverManager.getConnection(conURL);
+
+            String query = "update users set profile_pic=? where email=?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, profilePic);
+            ps.setString(2, email);
+
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                flag = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
     public static void updateLinkDetails(int userId, String twitter, String linkedin, String github) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -257,7 +283,7 @@ public class User {
             while (rs.next()) {
                 if (rs.getInt(19) == 1 || rs.getInt(19) == 7) {
                     if (spe.checkPassword(password, rs.getString("password"))) {
-                        
+
                         // Update the user object with all the variables
                         userId = rs.getInt(1);
                         name = rs.getString(2);
