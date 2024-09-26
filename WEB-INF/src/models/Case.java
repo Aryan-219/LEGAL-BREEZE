@@ -83,7 +83,7 @@ public class Case {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
-            String query = "select * from cases as c inner join users as u where user_id=?";
+            String query = "select * from cases as c inner join users as u where u.user_id=c.client_id and user_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();

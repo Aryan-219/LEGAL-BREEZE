@@ -23,13 +23,11 @@ public class ShowDashBoardServlet extends HttpServlet {
 
         String nextURL = "dashboard.jsp";
 
-        ArrayList<Bid> openBids = Bid.collectAllBids(user.getUserId(),3);
+        ArrayList<Bid> openBids = Bid.collectAllBids(user.getUserId(), 3);
         session.setAttribute("openBids", openBids);
 
-        ArrayList<Bid> pendingBids = Bid.collectAllBids(user.getUserId(),7);
+        ArrayList<Bid> pendingBids = Bid.collectAllBids(user.getUserId(), 7);
         session.setAttribute("pendingBids", pendingBids);
-
-        
 
         ArrayList<Case> cases = Case.collectAllCases(user.getUserId());
         session.setAttribute("cases", cases);
@@ -39,7 +37,8 @@ public class ShowDashBoardServlet extends HttpServlet {
 
         request.getRequestDispatcher(nextURL).forward(request, response);
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse respone) throws ServletException,IOException {
+
+    public void doPost(HttpServletRequest request, HttpServletResponse respone) throws ServletException, IOException {
         doGet(request, respone);
     }
 }

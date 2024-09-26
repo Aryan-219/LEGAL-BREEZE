@@ -12,8 +12,12 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 public class Provider extends User {
     // ################### Properties #########################
+    static StrongPasswordEncryptor spe = new StrongPasswordEncryptor();
+    
     Integer providerId;
     User user;
     ProviderType providerType;
@@ -221,7 +225,7 @@ public class Provider extends User {
 
             ps.setString(1, getName());
             ps.setString(2, getEmail());
-            ps.setString(3, getPassword());
+            ps.setString(3, spe.encryptPassword(getPassword()));
             ps.setString(4, getPhone());
             ps.setInt(5, getState().getStateId());
             ps.setInt(6, getUserType().getUserTypeId());

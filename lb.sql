@@ -611,10 +611,10 @@ values
 insert into users 
 (name, email, password, phone, state_id, user_type_id,joined_on,status_id,otp) 
 values 
-('Aryan as seeker', 'aryanagr219@gmail.com','aryan1234', '6265311230', 11, 1,'2024/09/07 15:18:39',1,''),
-('Aryan as Doc Writer', 'aryan21902@gmail.com','aryan1234', '6265311231', 11, 2,'2024/09/07 15:18:39',1,''),
-('Aryan as Lawyer', 'ironman210902@gmail.com','aryan1234', '6265311232', 11, 2,'2024/09/07 15:18:39',7,''),
-('Aryan as second seeker', 'aaaryan8080@gmail.com','aryan1234', '6265311233', 11, 1,'2024/09/07 15:18:39',1,'');
+('Aryan as seeker', 'aryanagr219@gmail.com','GAhbrBhet0rr703+s5OOnuaVJmy5dWS2kGj+GMbufFvluvgrt31oY+kp8FauFfUg', '6265311230', 11, 1,'2024/09/07 15:18:39',1,''),
+('Aryan as Doc Writer', 'aryan21902@gmail.com','GAhbrBhet0rr703+s5OOnuaVJmy5dWS2kGj+GMbufFvluvgrt31oY+kp8FauFfUg', '6265311231', 11, 2,'2024/09/07 15:18:39',1,''),
+('Aryan as Lawyer', 'ironman210902@gmail.com','GAhbrBhet0rr703+s5OOnuaVJmy5dWS2kGj+GMbufFvluvgrt31oY+kp8FauFfUg', '6265311232', 11, 2,'2024/09/07 15:18:39',7,''),
+('Aryan as second seeker', 'aaaryan8080@gmail.com','GAhbrBhet0rr703+s5OOnuaVJmy5dWS2kGj+GMbufFvluvgrt31oY+kp8FauFfUg', '6265311233', 11, 1,'2024/09/07 15:18:39',1,'');
 
 
 insert into providers 

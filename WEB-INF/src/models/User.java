@@ -9,10 +9,14 @@ import java.sql.Timestamp;
 
 import javax.servlet.ServletContext;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import utils.AppUtility;
 
 public class User {
     // ################### Properties #########################
+    static StrongPasswordEncryptor spe = new StrongPasswordEncryptor();
+
     private Integer userId;
     private String name;
     private String email;
@@ -99,7 +103,7 @@ public class User {
         this.email = email;
     }
 
-    public static void updateLinkDetails(int userId, String twitter, String linkedin, String github){
+    public static void updateLinkDetails(int userId, String twitter, String linkedin, String github) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
@@ -115,8 +119,9 @@ public class User {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return ;
+        return;
     }
+
     public boolean updateUserStatus(Integer userId, Integer statusId) {
         boolean flag = false;
         try {
@@ -242,29 +247,33 @@ public class User {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(conURL);
-            String query = "select * from users where password=? and email=?";
+            String query = "select * from users where  email=?";
+
+            // System.out.println("Recieved password" + password);
+            // System.out.println("Encrypted password" + spe.encryptPassword(password));
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, password);
-            ps.setString(2, email);
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(19) == 1 || rs.getInt(19) == 7) {
-
-                    // Update the user object with all the variables
-                    userId = rs.getInt(1);
-                    name = rs.getString(2);
-                    email = rs.getString(3);
-                    password = rs.getString(4);
-                    phone = rs.getString(5);
-                    // address = rs.getString(6);
-                    state = new State(rs.getInt(8));
-                    userType = new UserType(rs.getInt(10));
-                    joinedOn = rs.getTimestamp(15);
-                    status = new Status(rs.getInt(19));
-                    twitter = rs.getString("twitter");
-                    linkedin = rs.getString("linkedin");
-                    github = rs.getString("github");
-                    flag = 1;
+                    if (spe.checkPassword(password, rs.getString("password"))) {
+                        
+                        // Update the user object with all the variables
+                        userId = rs.getInt(1);
+                        name = rs.getString(2);
+                        email = rs.getString(3);
+                        password = null;
+                        phone = rs.getString(5);
+                        // address = rs.getString(6);
+                        state = new State(rs.getInt(8));
+                        userType = new UserType(rs.getInt(10));
+                        joinedOn = rs.getTimestamp(15);
+                        status = new Status(rs.getInt(19));
+                        twitter = rs.getString("twitter");
+                        linkedin = rs.getString("linkedin");
+                        github = rs.getString("github");
+                        flag = 1;
+                    }
                 } else {
                     flag = 2;
                 }
@@ -288,7 +297,7 @@ public class User {
                     + userType.getUserTypeId() + " " + AppUtility.getTodayDateTime());
             ps.setString(1, name);
             ps.setString(2, email);
-            ps.setString(3, password);
+            ps.setString(3, spe.encryptPassword(password));
             ps.setString(4, phone);
             ps.setInt(5, state.getStateId());
             ps.setInt(6, userType.getUserTypeId());
