@@ -76,11 +76,21 @@
                           href="#"
                           class="flex md:flex-row flex-col h-[225px] items-center bg-white border border-gray-200 rounded-lg shadow md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
                         >
-                          <img
-                            class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-[300px] md:rounded-none md:rounded-s-lg"
-                            src="static/media/images/download.jpg"
-                            alt="Lawyer Image"
-                          />
+                        <c:choose>
+                          <c:when test="${docwriter.profilePic==null}">
+                            
+                            <img
+                              class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-[300px] md:rounded-none md:rounded-s-lg"
+                              src="static/media/images/signup/user_default.png" alt="Lawyer Image" />
+                          </c:when>
+                          <c:otherwise>
+
+                            <img
+                              class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-[300px] md:rounded-none md:rounded-s-lg"
+                              src="get_profile_pic.do?email=${docwriter.email}&profile_pic=${docwriter.profilePic}" alt="docwriter Image" />
+                          </c:otherwise>
+                        </c:choose>
+                          
                           <div
                             class="flex flex-col justify-center w-[50%] items-center"
                           >
@@ -107,7 +117,7 @@
                                 <p
                                   class="text-2xl font-normal text-gray-700 dark:text-gray-400"
                                 >
-                                  <c:out value="${docwriter.phone}" /> years
+                                  <c:out value="${docwriter.phone}" />
                                 </p>
                               </div>
 

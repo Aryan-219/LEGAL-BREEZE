@@ -34,14 +34,14 @@
           /> -->
           <c:choose>
             <c:when test="${user.profilePic == null}">
-                <img class="w-8 h-8 rounded-full cursor-pointer"
+                <img class="w-16 h-16 rounded-full cursor-pointer"
                  data-modal-target="popup-modal"
             data-modal-toggle="popup-modal"
                     src="static/media/images/signup/user_default.png" alt="Default avatar">
             </c:when>
 
             <c:otherwise>
-                <img class="w-8 h-8 rounded-full cursor-pointer"  data-modal-target="popup-modal"
+                <img class="w-16 h-16 rounded-full cursor-pointer"  data-modal-target="popup-modal"
             data-modal-toggle="popup-modal"
                 src="show_profile_pic.do"
                     alt="User avatar">

@@ -76,11 +76,23 @@
                           href="#"
                           class="flex md:flex-row flex-col h-[225px] items-center bg-white border border-gray-200 rounded-lg shadow md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
                         >
+                        <c:choose>
+                          <c:when test="${notary.profilePic==null}">
+                            
+                            <img
+                              class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-[300px] md:rounded-none md:rounded-s-lg"
+                              src="static/media/images/signup/user_default.png" alt="Lawyer Image" />
+                          </c:when>
+                          <c:otherwise>
+
                           <img
-                            class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-[300px] md:rounded-none md:rounded-s-lg"
-                            src="static/media/images/download.jpg"
-                            alt="Notary image"
-                          />
+                          class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-[300px] md:rounded-none md:rounded-s-lg"
+                          src="get_profile_pic.do?email=${notary.email}&profile_pic=${notary.profilePic}"
+                          alt="Notary image"
+                        />
+                          </c:otherwise>
+                        </c:choose>
+                          
                           <div
                             class="flex flex-col justify-center w-[50%] items-center"
                           >

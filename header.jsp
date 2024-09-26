@@ -17,15 +17,13 @@
                 id="proico" /> -->
                 <c:choose>
                   <c:when test="${user.profilePic == null}">
-                      <img class="w-8 h-8 rounded-full cursor-pointer"
-                       data-modal-target="popup-modal"
-                  data-modal-toggle="popup-modal"
+                      <img class="w-12 h-12 rounded-full cursor-pointer"
+                       
                           src="static/media/images/signup/user_default.png" alt="Default avatar">
                   </c:when>
       
                   <c:otherwise>
-                      <img class="w-8 h-8 rounded-full cursor-pointer"  data-modal-target="popup-modal"
-                  data-modal-toggle="popup-modal"
+                      <img class="w-12 h-12 rounded-full cursor-pointer"  
                       src="show_profile_pic.do"
                           alt="User avatar">
                   </c:otherwise>
@@ -42,6 +40,10 @@
             </div>
             <ul class="py-2" aria-labelledby="user-menu-button">
               <li>
+                <a href="profile.do"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
+              </li>
+              <li>
                 <c:choose >
                   <c:when test="${user.userType.userTypeId==1}">
                     <a href='dashboard.do' class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
@@ -52,12 +54,8 @@
                 </c:choose>
               </li>
               <li>
-                <a href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-              </li>
-              <li>
-                <a href="profile.do"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
+                <a href="bids.do"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">All Bids</a>
               </li>
               <li>
                 <a href="logout.do"
