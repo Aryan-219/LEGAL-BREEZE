@@ -47,7 +47,6 @@ public class SaveCaseDetails extends HttpServlet {
             flag=p.updateStatus(lawyerId);
             // flag=p.updateUserStatus(lawyerId,7);
             if(flag){
-
                 System.out.println("Result of sql statement: " + flag);
                 response.sendRedirect("provider_hired.jsp");
             }

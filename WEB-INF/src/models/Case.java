@@ -78,7 +78,38 @@ public class Case {
         return flag;
     }
 
+    public static ArrayList<Case> collectAllCasesProviders(Integer userId) {
+        System.out.println("User id received: " + userId);
+        ArrayList<Case> allCases = new ArrayList<Case>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(conURL);
+            String query = "select * from cases as c inner join users as u where u.user_id=c.lawyer_id and user_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Case c = new Case();
+                c.setCaseId(rs.getInt("case_id"));
+                c.setIssue(rs.getString("issue"));
+                c.setDescription(rs.getString("description"));
+                // c.setSeeker(rs.getInt("seeker_id"));
+                // c.setProvider(rs.getInt("provider_id"));
+                c.setStartDate(rs.getDate("start_date"));
+                c.setEndDate(rs.getDate("end_date"));
+                c.setCourt(new Court(rs.getInt("court_id")));
+                c.setBudget(rs.getInt("budget"));
+                c.setStatus(new Status(rs.getInt("status_id")));
+                allCases.add(c);
+            }
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return allCases;
+    }
     public static ArrayList<Case> collectAllCases(Integer userId) {
+        System.out.println("User id received: " + userId);
         ArrayList<Case> allCases = new ArrayList<Case>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

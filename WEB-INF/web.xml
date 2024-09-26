@@ -24,6 +24,10 @@
   <listener>
     <listener-class>listeners.AppListenerImpl</listener-class>
   </listener>
+  
+  <welcome-file-list>
+    <welcome-file>index.do</welcome-file>
+  </welcome-file-list>
 
   <context-param>
     <param-name>server</param-name>

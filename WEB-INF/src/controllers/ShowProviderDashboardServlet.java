@@ -33,7 +33,7 @@ public class ShowProviderDashboardServlet extends HttpServlet {
         }
         session.setAttribute("approvedBids", approvedBids);
 
-        ArrayList<Case> cases = Case.collectAllCases(user.getUserId());
+        ArrayList<Case> cases = Case.collectAllCasesProviders(user.getUserId());
         session.setAttribute("cases", cases);
         request.getRequestDispatcher("provider_dashboard.jsp").forward(request, response);
     }
