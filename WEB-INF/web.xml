@@ -24,24 +24,24 @@
   <listener>
     <listener-class>listeners.AppListenerImpl</listener-class>
   </listener>
-  
+
   <welcome-file-list>
     <welcome-file>index.do</welcome-file>
   </welcome-file-list>
 
   <context-param>
     <param-name>server</param-name>
-    <param-value>localhost</param-value>
+    <param-value>34.196.79.80</param-value>
   </context-param>
 
   <context-param>
     <param-name>application_name</param-name>
-    <param-value>LEGAL-BREEZE</param-value>
+    <param-value>legalbreeze</param-value>
   </context-param>
 
   <context-param>
     <param-name>host</param-name>
-    <param-value>localhost</param-value>
+    <param-value>conqueror.c73naxscslsv.us-east-1.rds.amazonaws.com</param-value>
   </context-param>
 
   <context-param>
@@ -93,8 +93,8 @@
     <param-name>from_email_password</param-name>
     <param-value>Wildwolf21@ironman</param-value>
   </context-param> -->
-  
-  <context-param>
+
+  <!-- <context-param>
     <param-name>from_email</param-name>
     <param-value>aryansecondary@outlook.com</param-value>
   </context-param>
@@ -102,5 +102,14 @@
   <context-param>
     <param-name>from_email_password</param-name>
     <param-value>Wildwolf21@outlook</param-value>
+  </context-param> -->
+  <context-param>
+    <param-name>from_email</param-name>
+    <param-value>aryanagrawal@zohomail.in</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>from_email_password</param-name>
+    <param-value>Wildwolf21@zoho</param-value>
   </context-param>
 </web-app>

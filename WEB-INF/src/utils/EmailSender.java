@@ -19,7 +19,7 @@ public class EmailSender {
     static Properties props = new Properties();
     static {
         props.put("mail.transport.protocol","smtp");
-        props.put("mail.smtp.host","smtp-mail.outlook.com");
+        props.put("mail.smtp.host","smtp.zoho.in");
         props.put("mail.smtp.port","587");
         props.put("mail.smtp.auth","true");
         props.put("mail.smtp.starttls.enable","true");
