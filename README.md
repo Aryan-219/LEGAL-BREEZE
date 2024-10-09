@@ -21,4 +21,14 @@
 
 ```8. Configure the parameters of web.xml file (esp root and unmsql)```
 
-```9. Project is ready to run :)```
+```
+9. Login using  the following email id's
+- a. aryanagr219@gmail.com
+- b. aryan21902@gmail.com
+- c. aaaryan8080@gmail.com
+- d. ironman21902@gmail.com
+```
+
+``` 10. Login using the following password : "aryan1234"  :) ```
+
+```11. Have a nice surfing around my project world. I am open to suggestions and pull requests :)```
