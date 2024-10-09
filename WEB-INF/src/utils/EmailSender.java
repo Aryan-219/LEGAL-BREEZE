@@ -19,7 +19,7 @@ public class EmailSender {
     static Properties props = new Properties();
     static {
         props.put("mail.transport.protocol","smtp");
-        props.put("mail.smtp.host","smtp-mail.outlook.com");
+        props.put("mail.smtp.host","smtp.zoho.in");
         props.put("mail.smtp.port","587");
         props.put("mail.smtp.auth","true");
         props.put("mail.smtp.starttls.enable","true");
@@ -53,6 +53,7 @@ public class EmailSender {
 }
 class EmailAuthenticator extends Authenticator{
     public PasswordAuthentication getPasswordAuthentication(){
+        //Create ZohoMail Account and make changes in web.xml
         return new PasswordAuthentication(AppUtility.fromEmail, AppUtility.fromEmailPassword);
     } 
 }
